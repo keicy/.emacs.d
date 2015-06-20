@@ -1,0 +1,6 @@
+	locate-user-emacs-file base-name &optional old-name
+http://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-File-Names.html
+
+	expand-file-name filename &optional directory
+http://www.geocities.co.jp/SiliconValley-Bay/9285/ELISP-JA/elisp_386.html
+

@@ -1,0 +1,9 @@
+# 一旦直下のファイルとディレクトリを全て無視
+/*
+# 但し以下は管理
+!/.gitignore
+!/init.el
+!/.memo/
+!/themes/
+!/tools/
+!/init/

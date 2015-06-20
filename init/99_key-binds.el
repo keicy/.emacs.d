@@ -1,0 +1,235 @@
+;; 前提条件
+  ;無変換(左)  -> Alt
+  ;変換(右)   -> Ctrl
+
+;; It looks bug.. NOT work with (bundle!).
+(when (locate-library (symbol-name 'bind-key))
+  (require 'bind-key))
+
+
+;;; Create original key map to use <hiragana-katakana> as prefix key.
+  ; http://qiita.com/Fenril058/items/f66cb8c76cdff729826c
+  ; http://yohshiy.blog.fc2.com/blog-entry-271.html
+(defvar keicy-util-map (make-keymap))
+(global-set-key (kbd "<hiragana-katakana>") keicy-util-map)
+
+
+;;; Utils.
+
+;; Easy syntax to "keyboard-translate" each other.
+  ; http://homepage1.nifty.com/blankspace/emacs/keybind.html
+  ; http://yohshiy.blog.fc2.com/blog-entry-271.html
+  ; http://www.bookshelf.jp/texi/emacs-man/21-3/jp/faq_10.html#SEC142
+(defmacro bind-exchange (bind1 bind2)
+  `(progn
+    (keyboard-translate ,bind1 ,bind2)
+    (keyboard-translate ,bind2 ,bind1)))
+
+;; When library is installed then bind keys as absolute binding.
+  ;http://rubikitch.com/2014/09/10/bind-key/
+(defmacro absb (libsym &rest body)
+  `(when (locate-library ,(symbol-name libsym))
+    (bind-keys* 
+      ,@(loop for e
+              in body
+              collect `(,(car e) . ,(cadr e))))))
+;;### Usage ###
+;(absb helm
+;  ("M-x" helm-M-x)
+;  ("C-x C-r" helm-recentf))
+;;#############
+
+;; When library is installed then bind keys in keicy-util-map.
+(defmacro keicy-util (libsym &rest body)
+  ""
+  `(when (locate-library ,(symbol-name libsym))
+    (progn
+      ,@(loop for bind
+              in body
+              collect `(define-key keicy-util-map ,(car bind) ',(cadr bind))))))
+;;### Usage ###
+;(keicy-util elscreen
+;  ("n" elscreen-create)
+;  ("k" elscreen-kill))
+;;#############
+
+
+;;; My binds. 
+  ;編集関連はC、Mを用いる
+  ;プレフィクス:[カタカナ~]キーは編集以外の機能
+
+;; Basics.
+(bind-keys*
+  ("C-d"   . delete-char)                                                 ;DEL
+  ("C-f"   . delete-backward-char)                                        ;Backspace
+  ("C-g"   . undo)                                                        ;アンドゥ
+  ("C-g"   . redo)                                                        ;リドゥ
+  ("C-h"   . keicy-cl-newline)                                          ;一文字進んで改行
+  ("M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
+  ("C-M-h" . newline-and-indent)                                        ;改行&インデント
+  ("C-j"   . backward-char)                                               ;一文字戻る
+  ("C-k"   . previous-line)                                               ;一行上がる
+  ("C-l"   . next-line)                                                   ;一行下がる
+  ("C-;"   . forward-char)                                                ;一文字進む
+)
+
+;; Isearch setting.
+(bind-exchange ?\C-z ?\C-s)
+(bind-exchange ?\C-q ?\C-r)
+
+;; Elscreen.
+(absb elscreen
+  ("M-<hiragana-katakana>" elscreen-next)
+  ("M-S-<hiragana-katakana>" elscreen-previous))
+(keicy-util elscreen
+  ("n" elscreen-create)
+  ("k" elscreen-kill))
+
+;; Helm.
+(absb helm
+  ("M-x" helm-M-x)
+  ("C-x C-f" helm-find-files)
+  ("C-x C-r" helm-recentf)
+  ("C-x C-b" helm-buffers-list)
+)
+
+;; Ag.
+(keicy-util ag
+  ("r" ag-at-hand))
+  
+;;test 
+(smartrep-define-key global-map "<hiragana-katakana>"
+  '(("i" . 'mc/mark-next-like-this)
+    ("o" . 'mc/mark-previous-like-this)))
+
+
+
+;;; Set Util bindings.
+  ;(define-key keicy-util-map "d" 'slime) ->ok!
+  ;(define-key keicy-util-map (kbd "n" 'elscreen-create) ->ok!
+
+;; Cursole binds.
+;(bind-keys*
+   ;; カーソル移動 ---------------------------------------------------
+;  ("C-a" . seq-home)                      ;行頭/文頭/ファイル頭
+;  ("C-d" . delete-char)                   ;DEL
+;  ("C-f" . delete-backward-char)          ;Backspace
+;  ("C-h" . backward-char)                 ;一文字戻る
+;  ("C-j" . forward-char)                  ;一文字進む
+;  ("C-k" . next-line)                     ;一行下がる
+;  ("C-l" . previous-line)                 ;一行上がる
+;  ("C-;" . newline-and-indent)            ;改行&インデント
+;  ("M-;" . keicy-endline-newline-indent)  ;行末へ移動&改行&インデント
+;  ("C-M-;" . keicy-endline-newline-indent);同上
+;  ("C-:" . seq-end)                       ;行末/文末/ファイル末
+
+  ;; 編集 ---------------------------------------------------------
+;  ("C-g" . undo)                          ;アンドゥ
+;  ("M-g" . redo)                          ;リドゥ 
+;  ("M-w" . kill-region)                   ;切り取り
+;  ("C-w" . kill-ring-save)                ;コピー
+;  ("C-e" . cua-paste)                     ;ペースト
+;  ("M-e" . cua-paste)                     ;同上
+;    ( "C-"" . )         ;置換
+;    ( "C-"" . )         ;矩形選択
+
+  ;; emacs操作 ----------------------------------------------------
+;  ("C-q" . abort-recursive-edit)          ;操作キャンセル(C-gの代わり) ※トラブルがあるので下記詳細
+;  ("C-t" . keicy-window-or-split)         ;ウィンドウ切替
+;  ("C-x C-b" . switch-to-buffer)          ;バッファ切替 ※デフォルトはlist-buffers
+;)
+
+;;;; C-g(keyboard-quit)を他キーに割り当てるトラブルについて ;;;;;;;;;;;;
+;;
+;;keyboard-quitをC-qなどに割り当てると正常動作しない
+;;(definbd "C-q"" 'keyboard-quit)
+;;これは、ミニバッファ内でC-gを押しているとき、実はkeyboard-quitではなく
+;;abort-recursive-editを読んでいるためらしい
+;;※cf) http://emacs.stackexchange.com/questions/5971/additional-binding-for-keyboard-quit-doesnt-work-with-minibuffer
+;;下記のように書くと一応動くが、ちょくちょくマクロエラーが吐かれる
+;;(glod "C-g"")
+::
+;;そこで、C-qにはkeyboard-quitではなく下記いずれかを割り当て対処する
+;;1)top-level
+;;2)abort-recursive-edit
+;;3)keyboard-escape-quit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+;; 改行でオートインデント
+;; 文字変換確定
+;(globalbd "C-m"" 'newline-and-indent)
+;; C-hでBackSpace
+;(keyboard-translate ?\C-h ?\C-?)
+;; 折り返しトグルコマンド
+;(globalbd "C-c l"" 'toggle-truncate-lines)
+;; アンドゥ ※ElScreenとかぶってしまう。。。
+;(keyboard-translate ?\C-z ?\C-/)
+
+;;前のバッファ
+;(global-bd "M-p" 'previous-buffer)
+;;次のバッファ
+;(global-bd "M-n"" 'next-buffer)
+
+
+;----------------------------------------;
+; ElScreen
+;----------------------------------------;
+;(global-set-key [(C-zenkaku-hankaku)] 'elscreen-previous)
+;(global-set-key [(C-tab)] 'elscreen-next)
+;(global-set-key "\M-1" '(lambda () (interactive) (elscreen-goto 1)))
+;(global-set-key "\M-2" '(lambda () (interactive) (elscreen-goto 2)))
+;(global-set-key "\M-3" '(lambda () (interactive) (elscreen-goto 3)))
+;(global-set-key "\M-4" '(lambda () (interactive) (elscreen-goto 4)))
+;(global-set-key "\M-5" '(lambda () (interactive) (elscreen-goto 5)))
+;(global-set-key "\M-6" '(lambda () (interactive) (elscreen-goto 6)))
+;(global-set-key "\M-7" '(lambda () (interactive) (elscreen-goto 7)))
+;(global-set-key "\M-8" '(lambda () (interactive) (elscreen-goto 8)))
+;(global-set-key "\M-9" '(lambda () (interactive) (elscreen-goto 9)))
+;(global-bd "C-M-<left>"" 'elscreen-swap-previous)
+;(global-bd "C-M-<right>"" 'elscreen-swap-next)
+;(global-bd "M-k"" 'kill-buffer-for-elscreen)
+
+;----------------------------------------;
+; expand-region
+;----------------------------------------;
+;(global-bd "C-@"" 'er/expand-region)
+;(global-bd "C-M-@"" 'er/contract-region)
+
+;----------------------------------------;
+; auto-complete
+;----------------------------------------;
+;(define-key ac-completing-map "\C-n" 'ac-next)
+;(define-key ac-completing-map "\C-p" 'ac-previous)
+
+;----------------------------------------;
+; SLIME
+;----------------------------------------;
+;(globalbd "C-c C-s"" 'my-slime)
+ 
+;----------------------------------------;
+; RUBY-MODE
+;----------------------------------------;
+;;;;マイナーモード[inf-ruby-mode]の優先競合キーを無効化し独自バインドを設定
+;(eval-after-load "inf-ruby"
+;  '(progn
+;     (debd "C-c C-r"" nil)
+;     ))
+;(add-hook 'ruby-mode-hook
+;          '(lambda ()
+;        bd "C-c C-r"" 'keicy-ruby-script-runner)
+;             ))
+
+;----------------------------------------;
+; INF-RUBY-MODE
+;----------------------------------------;
+;;;;メジャーモード[inf-ruby-mode]において競合キーを上書きし独自バインドを設定
+;(add-hook 'inf-ruby-mode-hook
+;          '(lambda ()
+;        bd "C-c C-r"" 'keicy-ruby-script-runner)
+;             ))

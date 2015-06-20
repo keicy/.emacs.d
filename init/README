@@ -1,0 +1,6 @@
+00 : emacs basic setting
+10 : emacs editing tools
+20 : basic util tools
+30 : basic dev tools
+40-80 : lang specific
+90 : my customize
