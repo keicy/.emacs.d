@@ -58,24 +58,56 @@
   ;編集関連はC、Mを用いる
   ;プレフィクス:[カタカナ~]キーは編集以外の機能
 
-;; Basics.
+;; Dispatch Enter key from C-m.
+  ;http://stackoverflow.com/questions/2298811/how-to-turn-off-alternative-enter-with-ctrlm-in-linux
+  ;C-1からC-9には他愛もないコマンドが割り当てられているためC-m押下を例えばC-6と認識するようにパッチ
+  ;そしてEnterキーをC-mと認識するようにパッチ
+  ;※C-mｎキーを割り当てる場合、C-6に割り当てる必要がある
+(define-key input-decode-map (kbd "C-m") [?\C-6])
+(define-key input-decode-map (kbd "<return>") [?\C-m])
+
+;;;;;; testing
+;(define-key input-decode-map (kbd "C-;") [?\C-f])
+;(keyboard-translate ?\C-f ?\C-;) -> ng
+
+
+
+;; Cansel command.
+(define-key minibuffer-local-map (kbd "M-<zenkaku-hankaku>") 'abort-recursive-edit)
+(global-set-key (kbd "M-<zenkaku-hankaku>") 'keyboard-quit)
+
+;; Cursole control.
 (bind-keys*
-  ("C-d"   . delete-char)                                                 ;DEL
-  ("C-f"   . delete-backward-char)                                        ;Backspace
-  ("C-g"   . undo)                                                        ;アンドゥ
-  ("C-g"   . redo)                                                        ;リドゥ
+  ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
+  ("C-d"   . delete-char)                                               ;DEL
+  ("M-d"   . delete-word)                                               ;単語DEL
+  ("C-f"   . delete-backward-char)                                      ;Backspace
+  ("M-f"   . delete-backward-word)                                      ;単語Backspace
+  ("C-g"   . undo)                                                      ;アンドゥ
+  ("M-g"   . redo)                                                      ;リドゥ
   ("C-h"   . keicy-cl-newline)                                          ;一文字進んで改行
   ("M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
   ("C-M-h" . newline-and-indent)                                        ;改行&インデント
-  ("C-j"   . backward-char)                                               ;一文字戻る
-  ("C-k"   . previous-line)                                               ;一行上がる
-  ("C-l"   . next-line)                                                   ;一行下がる
-  ("C-;"   . forward-char)                                                ;一文字進む
+  ("C-j"   . backward-char)                                             ;一文字戻る
+  ("C-k"   . previous-line)                                             ;一行上がる
+  ("C-l"   . next-line)                                                 ;一行下がる
+  ("C-;"   . forward-char)                                              ;一文字進む
+  ("C-:"   . seq-end)                                                   ;行末/文末/ファイル末
+  ("C-v"   . kill-region)                                               ;切り取り
+  ("M-v"   . kill-ring-save)                                            ;コピー
+  ("C-M-v" . yank)                                                      ;ペースト
+  ("C-n"   . scroll-down)                                               ;前ページ
+  ("M-n"   . kscroll-up)                                                ;次ページ
+  ("C-M-n" . recenter-top-bottom)                                       ;ページ再描写
+  ("C-b"   . seq-upcase-backward-word)                                  ;大文字
+  ("M-b"   . seq-capitalize-backward-word)                              ;頭を大文字
+  ("C-M-b" . seq-downcase-backward-word)                                ;小文字
 )
 
-;; Isearch setting.
-(bind-exchange ?\C-z ?\C-s)
-(bind-exchange ?\C-q ?\C-r)
+;; Editing.
+;todo
+(define-key global-map
+  (kbd "C-#") 'hs-toggle-hiding)
 
 ;; Elscreen.
 (absb elscreen
@@ -87,26 +119,72 @@
 
 ;; Helm.
 (absb helm
-  ("M-x" helm-M-x)
-  ("C-x C-f" helm-find-files)
-  ("C-x C-r" helm-recentf)
+;  ("M-x" helm-M-x)
+;  ("C-x C-f" helm-find-files)
+;  ("C-x C-r" helm-recentf)
   ("C-x C-b" helm-buffers-list)
 )
+
+;; Dired.
+(keicy-util dired
+  ("d" dired))
 
 ;; Ag.
 (keicy-util ag
   ("r" ag-at-hand))
-  
-;;test 
-(smartrep-define-key global-map "<hiragana-katakana>"
-  '(("i" . 'mc/mark-next-like-this)
-    ("o" . 'mc/mark-previous-like-this)))
+
+;; Isearch.
+;(bind-exchange ?\C-z ?\C-s)
+;(bind-exchange ?\C-q ?\C-r)
+
+;; Multiple-Cursors.
+(global-unset-key (kbd "C-6"))
+;; "<hiragana-katakana>-m"を連続キーモードキャンセルとして用いる
+  ; C-6 means C-m. *rf) above "Enter key dispatch from C-m."
+(smartrep-define-key global-map "C-6"  
+  '(
+    ("a" . 'mc/mark-all-like-this)
+    ("h" . 'mc/mark-all-symbols-like-this)
+    ("w" . 'mc/mark-all-words-like-this)
+    ("r" . 'vr/mc-mark)
+    ("k" . 'mc/mark-previous-like-this)
+    ("l" . 'mc/mark-next-like-this)
+    ("K" . 'mc/unmark-previous-like-this)
+    ("L" . 'mc/unmark-next-like-this)
+    ("j" . 'mc/skip-to-previous-like-this)
+    (";" . 'mc/skip-to-next-like-this)
+    ("n" . 'mc/insert-numbers)
+    ("s" . 'mc/sort-regions)
+    ("t" . 'mc/mark-sgml-tag-pair)
+   ))
 
 
+;;;;;;;;test -> ok
+;(smartrep-define-key global-map "<hiragana-katakana>"
+;  '(("i" . 'mc/mark-next-like-this)
+;    ("o" . 'mc/mark-previous-like-this)))
+;;;;;;;;;;;;
 
-;;; Set Util bindings.
-  ;(define-key keicy-util-map "d" 'slime) ->ok!
-  ;(define-key keicy-util-map (kbd "n" 'elscreen-create) ->ok!
+;;Magit.
+
+;;Twittering-mode.
+
+;;Slime.
+(keicy-util slime
+  ("s" slime)
+)
+;(bind-keys :map lisp-mode-map
+;           ("C-q" . slime-load-file)
+;           ("C-w" . slime-compile-and-load-file)
+;           ("C-e" . slime-compile-defun)
+;)
+
+
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+
+
 
 ;; Cursole binds.
 ;(bind-keys*
