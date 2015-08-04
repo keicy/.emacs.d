@@ -3,6 +3,7 @@
 # 但し以下は管理
 !/.gitignore
 !/init.el
+!/el-get.lock
 !/.memo/
 !/themes/
 !/tools/

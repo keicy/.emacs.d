@@ -1,2 +1,2 @@
-(bundle elpa:flycheck)
+(bundle flycheck)
 ;  (add-hook 'after-init-hook #'global-flycheck-mode))

@@ -45,17 +45,14 @@
 ;; 行番号表示
 (global-linum-mode t)
 (set-face-attribute 'linum nil
-                    :foreground "#800"
+                    :foreground "#75C6C3" ;色
                     :height 0.9)
-
-;; 行番号フォーマット
-(setq linum-format "%4d")
 
 ;; 行間
 (setq-default line-spacing 1)
 
 ;;タブ幅
-(setq default-tab-width 2)
+(setq tab-width 2)
 
 ;; タブをスペースで扱う
 (setq-default indent-tabs-mode nil)
@@ -78,3 +75,6 @@
 
 ;; モードラインに現在時刻を表示する
 (display-time)
+
+;; デフォルトのフォントサイズ
+(set-frame-font "Monospace-14")

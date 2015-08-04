@@ -30,8 +30,14 @@
 
 ;;**********************************************************************
 
+;; load bash PATHs.
+(bundle! exec-path-from-shell
+  (let ((envs '("PATH" "LD_LIBRARY_PATH" "MANPATH" "INFOPATH")))
+    (exec-path-from-shell-copy-envs envs)))
+
 ;;##
 (bundle! tarao/el-get-lock)
+(el-get-lock)
 
 ;;##
 ;;CUTION!!! must from elpa. Do NOT from github.(its old..)

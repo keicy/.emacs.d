@@ -1,5 +1,6 @@
 (bundle slime
-  (setq inferior-lisp-program "sbcl")
+  (load (expand-file-name "~/.roswell/impls/ALL/ALL/quicklisp/slime-helper.el"))
+  (setq inferior-lisp-program "ros -L sbcl -Q run")
   (slime-setup '(slime-fancy)))
 
 
