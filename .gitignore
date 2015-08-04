@@ -4,6 +4,7 @@
 !/.gitignore
 !/init.el
 !/el-get.lock
+!/.jshintrc
 !/README.md
 !/.memo/
 !/themes/
