@@ -1,8 +1,9 @@
 
-```
 # .emacs.d
 It's a settings for emacs that v24.5 or later.
 
+## Usage
+```
 ;; clone.
 git clone git@github.com:keicy/.emacs.d.git
 
