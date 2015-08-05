@@ -36,7 +36,7 @@
           'executable-make-buffer-file-executable-if-script-p)
 
 ;; 現在のカーソル行を目立たせる
-(global-hl-line-mode)
+; (global-hl-line-mode)
 
 ;; タイトルバーにファイルのフルパス表示
 (setq frame-title-format
@@ -78,3 +78,7 @@
 
 ;; デフォルトのフォントサイズ
 (set-frame-font "Monospace-14")
+
+;; デフォルトの連携ブラウザ
+(setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "chromium-browser")
