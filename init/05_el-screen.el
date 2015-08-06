@@ -8,50 +8,6 @@
 
 ;;;; Util Functions
 
-;;screenの配置位置ずらし(左)
-;(defun elscreen-swap-previous()
-;  "Interchange screens selected currently and previous."
-;  (interactive)
-;  (cond
-;   ((elscreen-one-screen-p)
-;    (elscreen-message "There is only one screen, cannot swap"))
-;   (t
-;    (let* ((screen-list (sort (elscreen-get-screen-list) '>))
-;           (previous-screen
-;            (or (nth 1 (memq (elscreen-get-current-screen) screen-list))
-;               (car screen-list)))
-;           (current-screen (elscreen-get-current-screen))
-;           (current-screen-property
-;            (elscreen-get-screen-property current-screen))
-;           (previous-screen-property
-;            (elscreen-get-screen-property previous-screen)))
-;      (elscreen-set-screen-property current-screen previous-screen-property)
-;      (elscreen-set-screen-property previous-screen current-screen-property)
-;      (elscreen-goto-internal (elscreen-get-current-screen)))))
-;  (elscreen-previous))
-
-;;screenの配置位置ずらし(右)
-;(defun elscreen-swap-next()
-;  "Interchange screens selected currently and next."
-;  (interactive)
-;  (cond
-;   ((elscreen-one-screen-p)
-;    (elscreen-message "There is only one screen, cannot swap"))
-;   (t
-;    (let* ((screen-list (sort (elscreen-get-screen-list) '<))
-;           (next-screen
-;            (or (nth 1 (memq (elscreen-get-current-screen) screen-list))
-;               (car screen-list)))
-;           (current-screen (elscreen-get-current-screen))
-;           (current-screen-property
-;            (elscreen-get-screen-property current-screen))
-;           (next-screen-property
-;            (elscreen-get-screen-property next-screen)))
-;      (elscreen-set-screen-property current-screen next-screen-property)
-;      (elscreen-set-screen-property next-screen current-screen-property)
-;      (elscreen-goto-internal (elscreen-get-current-screen)))))
-;     (elscreen-next))
-
 ;;killした時は、直近のスクリーンを表示する
 (defvar elscreen-ignore-buffer-list
  '("*scratch*" "*Backtrace*" "*Colors*" "*Faces*" "*Compile-Log*" "*Packages*" "*vc-" "*Minibuf-" "*Messages" "*WL:Message"))

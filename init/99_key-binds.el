@@ -1,17 +1,28 @@
-;; 前提条件
-  ;無変換(左)  -> Alt
-  ;変換(右)   -> Ctrl
+;;; 前提条件
+  ;(左)無変換  -> Ctrl
+  ;(右)変換    -> Alt
+  ;思いついた時点で、空いている良いキーに追加する、後々たまに整理する
+
+
+;;; Bases.
 
 ;; It looks bug.. NOT work with (bundle!).
 (when (locate-library (symbol-name 'bind-key))
   (require 'bind-key))
 
-
-;;; Create original key map to use <hiragana-katakana> as prefix key.
+;; Create original key map to use <hiragana-katakana> as prefix key.
   ; http://qiita.com/Fenril058/items/f66cb8c76cdff729826c
   ; http://yohshiy.blog.fc2.com/blog-entry-271.html
 (defvar keicy-util-map (make-keymap))
 (global-set-key (kbd "<hiragana-katakana>") keicy-util-map)
+
+;; Dispatch Enter key from C-m.
+  ;http://stackoverflow.com/questions/2298811/how-to-turn-off-alternative-enter-with-ctrlm-in-linux
+  ;C-1からC-9には他愛もないコマンドが割り当てられているためC-m押下を例えばC-6と認識するようにパッチ
+  ;そしてEnterキーをC-mと認識するようにパッチ
+  ;※C-mにキーを割り当てる場合、C-6に割り当てる必要がある
+(define-key input-decode-map (kbd "C-m") [?\C-6])
+(define-key input-decode-map (kbd "<return>") [?\C-m])
 
 
 ;;; Utils.
@@ -58,61 +69,66 @@
   ;編集関連はC、Mを用いる
   ;プレフィクス:[カタカナ~]キーは編集以外の機能
 
-;; Dispatch Enter key from C-m.
-  ;http://stackoverflow.com/questions/2298811/how-to-turn-off-alternative-enter-with-ctrlm-in-linux
-  ;C-1からC-9には他愛もないコマンドが割り当てられているためC-m押下を例えばC-6と認識するようにパッチ
-  ;そしてEnterキーをC-mと認識するようにパッチ
-  ;※C-mｎキーを割り当てる場合、C-6に割り当てる必要がある
-(define-key input-decode-map (kbd "C-m") [?\C-6])
-(define-key input-decode-map (kbd "<return>") [?\C-m])
-
 ;;;;;; testing
 ;(define-key input-decode-map (kbd "C-;") [?\C-f])
 ;(keyboard-translate ?\C-f ?\C-;) -> ng
 
-
-
 ;; Cansel command.
-(define-key minibuffer-local-map (kbd "M-<zenkaku-hankaku>") 'abort-recursive-edit)
-(global-set-key (kbd "M-<zenkaku-hankaku>") 'keyboard-quit)
+;(define-key minibuffer-local-map (kbd "M-<zenkaku-hankaku>") 'abort-recursive-edit)
+;(global-set-key (kbd "M-<zenkaku-hankaku>") 'keyboard-quit)
+(define-key minibuffer-local-map (kbd "M-<return>") 'abort-recursive-edit)
+(global-set-key (kbd "M-<return>") 'keyboard-quit)
 
 ;; Cursole control.
 (bind-keys*
   ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
-  ("C-d"   . delete-char)                                               ;DEL
-  ("M-d"   . delete-word)                                               ;単語DEL
-  ("C-f"   . delete-backward-char)                                      ;Backspace
-  ("M-f"   . delete-backward-word)                                      ;単語Backspace
-  ("C-g"   . undo)                                                      ;アンドゥ
-  ("M-g"   . redo)                                                      ;リドゥ
-  ("C-h"   . keicy-cl-newline)                                          ;一文字進んで改行
-  ("M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
-  ("C-M-h" . newline-and-indent)                                        ;改行&インデント
-  ("C-j"   . backward-char)                                             ;一文字戻る
-  ("C-k"   . previous-line)                                             ;一行上がる
-  ("C-l"   . next-line)                                                 ;一行下がる
-  ("C-;"   . forward-char)                                              ;一文字進む
-  ("C-:"   . seq-end)                                                   ;行末/文末/ファイル末
-  ("C-v"   . kill-region)                                               ;切り取り
-  ("M-v"   . kill-ring-save)                                            ;コピー
-  ("C-M-v" . yank)                                                      ;ペースト
-  ("C-n"   . scroll-down)                                               ;前ページ
-  ("M-n"   . kscroll-up)                                                ;次ページ
-  ("C-M-n" . recenter-top-bottom)                                       ;ページ再描写
-  ("C-b"   . seq-upcase-backward-word)                                  ;大文字
-  ("M-b"   . seq-capitalize-backward-word)                              ;頭を大文字
-  ("C-M-b" . seq-downcase-backward-word)                                ;小文字
-)
 
-;; Editing.
-;todo
-(define-key global-map
-  (kbd "C-#") 'hs-toggle-hiding)
+  ("C-d"   . delete-char)                                               ;DEL
+  ("C-M-d"   . delete-word)                                               ;単語DEL
+  ("C-f"   . delete-backward-char)                                      ;Backspace
+  ("C-M-f"   . delete-backward-word)                                      ;単語Backspace
+
+  ("C-g"   . undo)                                                      ;アンドゥ
+  ("C-M-g"   . redo)                                                      ;リドゥ
+
+  ("M-h"   . keicy-cl-newline)                                          ;一文字進んで改行
+  ("C-M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
+  ;("C-M-h" . newline-and-indent)                                        ;改行&インデント
+ 
+  ("M-j"   . backward-char)                                             ;一文字戻る
+  ("C-M-j"   . backward-word)                                             ;一単語戻る
+  ("M-k"   . previous-line)                                             ;一行上がる
+  ("M-l"   . next-line)                                                 ;一行下がる
+  ("M-;"   . forward-char)                                              ;一文字進む
+  ("C-M-;"   . forward-word)                                              ;一単語進む
+ 
+  ("M-:"   . seq-end)                                                   ;行末/文末/ファイル末
+ 
+  ("M-v"   . kill-region)                                               ;切り取り
+  ("C-v"   . kill-ring-save)                                            ;コピー
+  ("C-M-v" . yank)                                                      ;ペースト
+
+  ("M-n"   . scroll-down)                                               ;前ページ
+  ("C-M-n"   . kscroll-up)                                                ;次ページ
+  ("M-n" . recenter-top-bottom)                                       ;ページ再描写
+
+  ("M-b"   . seq-upcase-backward-word)                                  ;大文字
+  ("C-M-b"   . seq-capitalize-backward-word)                              ;頭を大文字
+  ("C-b" . seq-downcase-backward-word)                                ;小文字
+  
+  ("M-m" . split-window-horizontally)                                ;ウィンドウ左右分割
+  ;; rf. above -  Dispatch Enter key from C-m.
+  ("C-6" . delete-window)                                            ;ウィンドウ消去
+  ("C-M-m" . delete-other-windows)                                   ;他ウィンドウ消去
+
+  ("C-<tab>" . keicy-window-or-split)                                ;ウィンドウ切替
+  ("C-x C-b" . switch-to-buffer)                                     ;バッファ切替
+)
 
 ;; Elscreen.
 (absb elscreen
-  ("M-<hiragana-katakana>" elscreen-next)
-  ("M-S-<hiragana-katakana>" elscreen-previous))
+  ("C-S->" elscreen-next)
+  ("C-S-<" elscreen-previous))
 (keicy-util elscreen
   ("n" elscreen-create)
   ("k" elscreen-kill))
@@ -135,7 +151,7 @@
 
 ;; Isearch.
 ;(bind-exchange ?\C-z ?\C-s)
-;(bind-exchange ?\C-q ?\C-r)
+;(bind-exchange ?\C-S-z ?\C-r)
 
 ;; Multiple-Cursors.
 (global-unset-key (kbd "C-6"))
@@ -157,6 +173,12 @@
     ("s" . 'mc/sort-regions)
     ("t" . 'mc/mark-sgml-tag-pair)
    ))
+
+;; Editing.
+;todo
+;; HS.
+;(define-key global-map
+;  (kbd "C-#") 'hs-toggle-hiding)
 
 
 ;;;;;;;;test -> ok
