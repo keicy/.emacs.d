@@ -127,8 +127,8 @@
 
 ;; Elscreen.
 (absb elscreen
-  ("C-S->" elscreen-next)
-  ("C-S-<" elscreen-previous))
+  ("C->" elscreen-next)
+  ("C-<" elscreen-previous))
 (keicy-util elscreen
   ("n" elscreen-create)
   ("k" elscreen-kill))
