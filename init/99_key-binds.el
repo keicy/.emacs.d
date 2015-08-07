@@ -84,9 +84,11 @@
   ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
 
   ("C-d"   . delete-char)                                               ;DEL
-  ("C-M-d"   . delete-word)                                               ;単語DEL
+  ("M-d"   . delete-char)                                               ;DEL
+ ; ("C-M-d"   . kill-word)                                               ;単語DEL
   ("C-f"   . delete-backward-char)                                      ;Backspace
-  ("C-M-f"   . delete-backward-word)                                      ;単語Backspace
+  ("M-f"   . delete-backward-char)                                      ;Backspace
+ ; ("C-M-f"   . kill-word -1)                                      ;単語Backspace
 
   ("C-g"   . undo)                                                      ;アンドゥ
   ("C-M-g"   . redo)                                                      ;リドゥ
@@ -139,6 +141,7 @@
 ;  ("C-x C-f" helm-find-files)
 ;  ("C-x C-r" helm-recentf)
   ("C-x C-b" helm-buffers-list)
+  ("C-x b" helm-buffers-list)
 )
 
 ;; Dired.
