@@ -78,6 +78,8 @@
 ;(global-set-key (kbd "M-<zenkaku-hankaku>") 'keyboard-quit)
 (define-key minibuffer-local-map (kbd "M-<return>") 'abort-recursive-edit)
 (global-set-key (kbd "M-<return>") 'keyboard-quit)
+(define-key minibuffer-local-map (kbd "C-<return>") 'abort-recursive-edit)
+(global-set-key (kbd "C-<return>") 'keyboard-quit)
 
 ;; Cursole control.
 (bind-keys*
@@ -86,10 +88,12 @@
   ("C-d"   . delete-char)                                               ;DEL
   ("M-d"   . delete-char)                                               ;DEL
  ; ("C-M-d"   . kill-word)                                               ;単語DEL
+  ("C-S-d"   . keicy-delete-line-nokillring)                                               ;行削除
   ("C-f"   . delete-backward-char)                                      ;Backspace
   ("M-f"   . delete-backward-char)                                      ;Backspace
  ; ("C-M-f"   . kill-word -1)                                      ;単語Backspace
-
+ ; ("C-S-f"   . kill-word -1)                                      ;単語Backspace
+ 
   ("C-g"   . undo)                                                      ;アンドゥ
   ("C-M-g"   . redo)                                                      ;リドゥ
 
