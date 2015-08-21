@@ -114,8 +114,8 @@
   ("C-v"   . kill-ring-save)                                            ;コピー
   ("C-M-v" . yank)                                                      ;ペースト
 
-  ("M-n"   . scroll-down)                                               ;前ページ
-  ("C-M-n"   . kscroll-up)                                                ;次ページ
+  ("M-n"   . scroll-down)                                               ;次ページ
+  ("C-M-n"   . scroll-up)                                                ;前ページ
   ("M-n" . recenter-top-bottom)                                       ;ページ再描写
 
   ("M-b"   . seq-upcase-backward-word)                                  ;大文字
