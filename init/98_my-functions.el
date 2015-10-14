@@ -3,17 +3,17 @@
   (interactive)
   (load-file "~/.emacs.d/init.el"))
 
-
 ;;ウィンドウ切り替え
-;;移動時にカーソルを1つ進める
 ;;分割していない時に押すと分割する
+;;移動後、そのバッファにslime-replが表示されていた場合にはカーソルを1つ進める
 (defun keicy-window-or-split ()
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
   (other-window 1)
-  (forward-char 1))
-  
+  (when (string= (buffer-name) "*slime-repl sbcl*")
+    (forward-char 1)))
+
 ;;;;ruby-modeで、スクリプトを即実行するコマンド
 ;;;;モジュールとしてのファイルではなくスクリプトとして書かれたファイルを
 ;;;;頭から下まで実行する

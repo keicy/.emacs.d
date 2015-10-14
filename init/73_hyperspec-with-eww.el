@@ -9,6 +9,7 @@
 	       (downcase symbol-name))))
     (cl-maplist 
         (lambda (entry)
+          (other-window 1) ;; add to display buffer on other window.
 		  (eww-open-file (concat common-lisp-hyperspec-root "Body/"
 				      (car entry)))
 		  (when (cdr entry)
