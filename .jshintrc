@@ -10,5 +10,17 @@
   "debug"    : true,  // debugger を許可
 
   // Relaxing Options - 危険性を認識した上で設定すること
-  "expr" : true  // x || (x = 1); とかができるようにする
+  "expr" : true,  // x || (x = 1); とかができるようにする
+  
+  // Mochaの警告を無効化
+  "globals": {
+    "describe"   : false,
+    "it"         : false,
+    "before"     : false,
+    "after"      : false,
+    "beforeEach" : false,
+    "afterEach"  : false,
+    "expect"     : false,
+    "jest"       : false
+  }
 }
