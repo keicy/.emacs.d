@@ -14,6 +14,25 @@
   (when (string= (buffer-name) "*slime-repl sbcl*")
     (forward-char 1)))
 
+;ウィンドウ左右入替(カーソルハイライト変更なし)
+(defun swap-screen-with-cursor()
+  "Swap two screen,with cursor in same buffer."
+  (interactive)
+  (let ((thiswin (selected-window))
+        (thisbuf (window-buffer)))
+    (other-window 1)
+    (set-window-buffer thiswin (window-buffer))
+    (set-window-buffer (selected-window) thisbuf)))
+
+;ウィンドウ左右入替(カーソルハイライト変更)
+(defun swap-screen()
+  "Swap two screen,leaving cursor at current window."
+  (interactive)
+  (let ((thiswin (selected-window))
+        (nextbuf (window-buffer (next-window))))
+    (set-window-buffer (next-window) (window-buffer))
+    (set-window-buffer thiswin nextbuf)))
+
 ;;末尾に移動して改行
 (defun keicy-endline-newline-indent ()
   (interactive)

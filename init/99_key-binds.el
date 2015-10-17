@@ -1,16 +1,18 @@
-;;; 前提条件
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 前提条件.
   ;(左)無変換  -> Ctrl
   ;(右)変換    -> Alt
-  ;思いついた時点で、空いている良いキーに追加する、後々たまに整理する
 
 
-;;; Bases.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 基本設定.
 
 ;; It looks bug.. NOT work with (bundle!).
 (when (locate-library (symbol-name 'bind-key))
   (require 'bind-key))
 
-;; Create original key map to use <hiragana-katakana> as prefix key.
+;; <hiragana-katakana> をprefix keyとして使う.
   ; http://qiita.com/Fenril058/items/f66cb8c76cdff729826c
   ; http://yohshiy.blog.fc2.com/blog-entry-271.html
 (defvar keicy-util-map (make-keymap))
@@ -25,8 +27,11 @@
 (define-key input-decode-map (kbd "<return>") [?\C-m])
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Utils.
 
+;; キーバインド交換。
 ;; Easy syntax to "keyboard-translate" each other.
   ; http://homepage1.nifty.com/blankspace/emacs/keybind.html
   ; http://yohshiy.blog.fc2.com/blog-entry-271.html
@@ -36,21 +41,29 @@
     (keyboard-translate ,bind1 ,bind2)
     (keyboard-translate ,bind2 ,bind1)))
 
-;; When library is installed then bind keys as absolute binding.
+;;!!!!!! これ必要ないんだよなぁ、、。;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 対象ライブラリがインスコされている場合に、そのライブラリの関数についての
+;; 絶対バインドを定義する。
   ;http://rubikitch.com/2014/09/10/bind-key/
+;;### 使い方 ###
+;(absb helm
+;  ("M-x" helm-M-x)
+;  ("C-x C-r" helm-recentf))
+;;#############
 (defmacro absb (libsym &rest body)
   `(when (locate-library ,(symbol-name libsym))
     (bind-keys* 
       ,@(loop for e
               in body
               collect `(,(car e) . ,(cadr e))))))
-;;### Usage ###
-;(absb helm
-;  ("M-x" helm-M-x)
-;  ("C-x C-r" helm-recentf))
-;;#############
 
-;; When library is installed then bind keys in keicy-util-map.
+;; 対象ライブラリがインスコされている場合に、そのライブラリの関数についての
+;; キーバインドをkeicy-util-mapに定義する。
+;;### Usage ###
+;(keicy-util elscreen
+;  ("n" elscreen-create)
+;  ("k" elscreen-kill))
+;;#############
 (defmacro keicy-util (libsym &rest body)
   ""
   `(when (locate-library ,(symbol-name libsym))
@@ -58,14 +71,11 @@
       ,@(loop for bind
               in body
               collect `(define-key keicy-util-map ,(car bind) ',(cadr bind))))))
-;;### Usage ###
-;(keicy-util elscreen
-;  ("n" elscreen-create)
-;  ("k" elscreen-kill))
-;;#############
 
 
-;;; My binds. 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; バインド設定.
   ;編集関連はC、Mを用いる
   ;プレフィクス:[カタカナ~]キーは編集以外の機能
 
@@ -73,15 +83,13 @@
 ;(define-key input-decode-map (kbd "C-;") [?\C-f])
 ;(keyboard-translate ?\C-f ?\C-;) -> ng
 
-;; Cansel command.
-;(define-key minibuffer-local-map (kbd "M-<zenkaku-hankaku>") 'abort-recursive-edit)
-;(global-set-key (kbd "M-<zenkaku-hankaku>") 'keyboard-quit)
+;; 入力コマンドキャンセル(元C-g).
 (define-key minibuffer-local-map (kbd "M-<return>") 'abort-recursive-edit)
 (global-set-key (kbd "M-<return>") 'keyboard-quit)
 (define-key minibuffer-local-map (kbd "C-<return>") 'abort-recursive-edit)
 (global-set-key (kbd "C-<return>") 'keyboard-quit)
 
-;; Cursole control.
+;; 絶対キー定義.
 (bind-keys*
   ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
 
@@ -129,6 +137,9 @@
 
   ("C-<tab>" . keicy-window-or-split)                                ;ウィンドウ切替
   ("C-x C-b" . switch-to-buffer)                                     ;バッファ切替
+  
+  ("<f2>" . swap-screen-with-cursor)                           ;ウィンドウ左右入替(カーソルハイライト変更なし)
+  ("<S-f2>" . swap-screen)                                     ;ウィンドウ左右入替(カーソルハイライト変更)
 )
 
 ;; Elscreen.
