@@ -41,7 +41,6 @@
     (keyboard-translate ,bind1 ,bind2)
     (keyboard-translate ,bind2 ,bind1)))
 
-;;!!!!!! これ必要ないんだよなぁ、、。;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 対象ライブラリがインスコされている場合に、そのライブラリの関数についての
 ;; 絶対バインドを定義する。
   ;http://rubikitch.com/2014/09/10/bind-key/
@@ -79,9 +78,9 @@
   ;編集関連はC、Mを用いる
   ;プレフィクス:[カタカナ~]キーは編集以外の機能
 
-;;;;;; testing
-;(define-key input-decode-map (kbd "C-;") [?\C-f])
-;(keyboard-translate ?\C-f ?\C-;) -> ng
+	;;;;;; testing
+	;(define-key input-decode-map (kbd "C-;") [?\C-f])
+	;(keyboard-translate ?\C-f ?\C-;) -> ng
 
 ;; 入力コマンドキャンセル(元C-g).
 (define-key minibuffer-local-map (kbd "M-<return>") 'abort-recursive-edit)

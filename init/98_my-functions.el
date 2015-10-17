@@ -1,9 +1,17 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Utils.
+
 ;; init.el リロード
 (defun i ()
   (interactive)
   (load-file "~/.emacs.d/init.el"))
 
-;;ウィンドウ切り替え
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ウィンドウ操作.
+
+;;ウィンドウ切替
 ;;分割していない時に押すと分割する
 ;;移動後、そのバッファにslime-replが表示されていた場合にはカーソルを1つ進める
 (defun keicy-window-or-split ()
@@ -33,11 +41,43 @@
     (set-window-buffer (next-window) (window-buffer))
     (set-window-buffer thiswin nextbuf)))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; 改行.
+
 ;;末尾に移動して改行
 (defun keicy-endline-newline-indent ()
   (interactive)
   (end-of-line)
   (newline-and-indent))
+
+;;末尾に移動し";"を挿入して改行
+(defun keicy-endline-semicolon-newline-indent ()
+  (interactive)
+  (end-of-line)
+  (insert ";")
+  (newline-and-indent))
+
+;;一文字進んで改行し"()"を挿入
+;; for Lisp.
+(defun keicy-cl-newline ()
+  (interactive)
+  (forward-char)
+  (newline-and-indent)
+  (insert "()")
+  (backward-char))
+
+;;一文字進んで改行
+;; for Lisp.
+(defun keicy-forward-char-newline ()
+  (interactive)
+  (forward-char)
+  (newline-and-indent))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; その他編集.
 
 ;;行削除 (キルリングに登録しない)
 (defun keicy-delete-line-nokillring ()
@@ -63,17 +103,6 @@
 ;;;;自動でリージョン選択してカーソル移動
 
 
-;;;;-----------------------;
-;; for CL
-;;;;-----------------------;
-
-;;一文字進んで改行し"()"を挿入
-(defun keicy-cl-newline ()
-  (interactive)
-  (forward-char)
-  (newline-and-indent)
-  (insert "()")
-  (backward-char))
 
 ;;;;-----------------------;
 ;; for Ruby

@@ -23,9 +23,4 @@
     (local-set-key (kbd "@") (smartchr '(",@" "`" "@")))
     (local-set-key (kbd ",") (smartchr '("," ",@")))
     (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
-
-    ;(local-set-key (kbd "F") (smartchr '("(defun `!!')" "F")))
-    ;(local-set-key (kbd "V") (smartchr '("(defvar `!!')" "V")))
-    ;(local-set-key (kbd "M") (smartchr '("(defmacro `!!')" "M")))
-    ;(local-set-key (kbd "P") (smartchr '("(defparameter `!!')" "P")))
   ))
