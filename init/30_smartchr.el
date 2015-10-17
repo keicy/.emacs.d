@@ -2,6 +2,8 @@
 (add-hook 'lisp-mode-hook 'keicy-common-lisp-chrset)
 (add-hook 'slime-repl-mode-hook 'keicy-common-lisp-chrset)
 
+;;;; 大文字はC-M-b系のキーバインドで入力する.
+
 (defun keicy-common-lisp-chrset ()
   (progn
     (local-set-key (kbd "A") (smartchr '("(apply `!!')" "A")))

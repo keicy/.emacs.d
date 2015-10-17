@@ -124,7 +124,7 @@
 
   ("M-n"   . scroll-down)                                               ;次ページ
   ("C-M-n"   . scroll-up)                                                ;前ページ
-  ("M-n" . recenter-top-bottom)                                       ;ページ再描写
+  ("C-n" . recenter-top-bottom)                                       ;ページ再描写
 
   ("M-b"   . seq-upcase-backward-word)                                  ;大文字
   ("C-M-b"   . seq-capitalize-backward-word)                              ;頭を大文字
@@ -139,16 +139,21 @@
   ("C-x C-b" . switch-to-buffer)                                     ;バッファ切替
   
   ("<f2>" . swap-screen-with-cursor)                           ;ウィンドウ左右入替(カーソルハイライト変更なし)
-  ("<S-f2>" . swap-screen)                                     ;ウィンドウ左右入替(カーソルハイライト変更)
+  ("S-<f2>" . swap-screen)                                     ;ウィンドウ左右入替(カーソルハイライト変更)
 )
 
 ;; Elscreen.
 (absb elscreen
   ("C->" elscreen-next)
-  ("C-<" elscreen-previous))
+  ("C-<prior>" elscreen-next)
+  ("C-<" elscreen-previous)
+  ("C-<next>" elscreen-previous))
 (keicy-util elscreen
   ("n" elscreen-create)
-  ("k" elscreen-kill))
+  ("k" elscreen-kill)
+  ("." elscreen-next)
+  ("," elscreen-previous)
+  )
 
 ;; Helm.
 (absb helm
