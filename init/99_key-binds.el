@@ -115,10 +115,6 @@
  
   ("C-g"   . undo)                                                      ;アンドゥ
   ("C-M-g"   . redo)                                                      ;リドゥ
-
-;  ("M-h"   . keicy-cl-newline)                                          ;一文字進んで改行
-;  ("C-M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
-;("C-M-h" . newline-and-indent)                                        ;改行&インデント
  
   ("M-j"   . backward-char)                                             ;一文字戻る
   ("C-M-j"   . backward-word)                                             ;一単語戻る
@@ -193,6 +189,15 @@
 (add-hook 'c-mode-common-hook
   (lambda ()
     (bind-keys :map c-mode-base-map
+               ("M-h" . keicy-endline-semicolon-newline-indent) ;末尾に移動し";"を挿入して改行
+               ("C-h" . keicy-endline-namikakko-newline-indent) ;末尾に移動し"{}"を挿入して改行
+               ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
+               )))
+
+;;; JS.
+(add-hook 'js2-mode-hook
+  (lambda ()
+    (bind-keys :map js2-mode-map
                ("M-h" . keicy-endline-semicolon-newline-indent) ;末尾に移動し";"を挿入して改行
                ("C-h" . keicy-endline-namikakko-newline-indent) ;末尾に移動し"{}"を挿入して改行
                ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
