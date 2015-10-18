@@ -13,7 +13,7 @@
     (local-set-key (kbd "F") (smartchr '("(funcall `!!')" "F")))
     (local-set-key (kbd "G") (smartchr '("(getf `!!')" "G")))
     (local-set-key (kbd "I") (smartchr '("(if `!!')" "I")))
-    (local-set-key (kbd "J") (smartchr '("(`!!')" "J")))
+    (local-set-key (kbd "J") (smartchr '("(`!!')" "\"`!!'\"" "J")))
     (local-set-key (kbd "L") (smartchr '("(let ((`!!')))" "(loop `!!')" "L")))
     (local-set-key (kbd "Q") (smartchr '("'" "`" "Q")))
     (local-set-key (kbd "S") (smartchr '("(setf `!!')" "S")))

@@ -126,9 +126,9 @@
   ("M-n" . scroll-down) ;次ページ
   ("C-M-n" . scroll-up) ;前ページ
   ("C-n" . recenter-top-bottom) ;ページ再描写
-  ("M-b" . seq-upcase-backward-word) ;大文字
-  ("C-M-b" . seq-capitalize-backward-word) ;頭を大文字
-  ("C-b" . seq-downcase-backward-word) ;小文字
+  ("C-b" . seq-capitalize-backward-word) ;頭を大文字
+  ("C-M-b" . seq-upcase-backward-word) ;大文字
+  ("M-b" . seq-downcase-backward-word) ;小文字
   ("M-m" . split-window-horizontally) ;ウィンドウ左右分割
   ("C-6" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
   ("C-M-m" . delete-other-windows) ;他ウィンドウ消去
