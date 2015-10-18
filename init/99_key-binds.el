@@ -116,9 +116,9 @@
   ("C-g"   . undo)                                                      ;アンドゥ
   ("C-M-g"   . redo)                                                      ;リドゥ
 
-  ("M-h"   . keicy-cl-newline)                                          ;一文字進んで改行
-  ("C-M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
-  ;("C-M-h" . newline-and-indent)                                        ;改行&インデント
+;  ("M-h"   . keicy-cl-newline)                                          ;一文字進んで改行
+;  ("C-M-h"   . keicy-endline-newline-indent)                              ;行末へ移動&改行&インデント
+;("C-M-h" . newline-and-indent)                                        ;改行&インデント
  
   ("M-j"   . backward-char)                                             ;一文字戻る
   ("C-M-j"   . backward-word)                                             ;一単語戻る
@@ -152,6 +152,40 @@
   ("<f2>" . swap-screen-with-cursor)                           ;ウィンドウ左右入替(カーソルハイライト変更なし)
   ("S-<f2>" . swap-screen)                                     ;ウィンドウ左右入替(カーソルハイライト変更)
 )
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; モードバインド.
+
+;;; TODO default binds.
+
+;;; Common Lisp.
+; lisp-mode-map
+(add-hook 'lisp-mode-hook
+  (lambda ()
+    (bind-keys :map lisp-mode-map
+               ("M-h" . keicy-cl-newline) ;一文字進んで改行し"()"を挿入
+               ("C-h" . keicy-forward-char-newline) ;一文字進んで改行
+               ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
+               )))
+; slime-repl-mode-map
+(add-hook 'slime-replmode-hook
+  (lambda ()
+    (bind-keys :map slime-repl-mode-map
+               ("M-h" . keicy-cl-newline) ;一文字進んで改行し"()"を挿入
+               ("C-h" . keicy-forward-char-newline) ;一文字進んで改行
+               ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
+               )))
+
+;;; C,Java.
+(add-hook 'c-mode-common-hook
+  (lambda ()
+    (bind-keys :map c-mode-base-map
+               ("M-h" . keicy-endline-semicolon-newline-indent) ;末尾に移動し";"を挿入して改行
+               ("C-h" . keicy-endline-namikakko-newline-indent) ;末尾に移動し"{}"を挿入して改行
+               ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
+               )))
 
 
 

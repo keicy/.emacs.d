@@ -59,6 +59,14 @@
   (insert ";")
   (newline-and-indent))
 
+;;末尾に移動し"{}"を挿入して改行
+(defun keicy-endline-namikakko-newline-indent ()
+  (interactive)
+  (end-of-line)
+  (insert "{}")
+  (backward-char)
+  (newline-and-indent))
+
 ;;一文字進んで改行し"()"を挿入
 ;; for Lisp.
 (defun keicy-cl-newline ()
