@@ -4,7 +4,8 @@
 ;; init.el リロード
 (defun i ()
   (interactive)
-  (load-file "~/.emacs.d/init.el"))
+  (byte-recompile-directory "~/.emacs.d/init")
+  (load-file "~/.emacs.d/init.el"))  
 
 
 
