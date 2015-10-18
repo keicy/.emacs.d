@@ -83,15 +83,12 @@
 	;(keyboard-translate ?\C-f ?\C-;) -> ng
 
 ;; 入力コマンドキャンセル(元C-g).
-(define-key minibuffer-local-map (kbd "M-<return>") 'abort-recursive-edit)
-(global-set-key (kbd "M-<return>") 'keyboard-quit)
 (define-key minibuffer-local-map (kbd "C-<return>") 'abort-recursive-edit)
 (global-set-key (kbd "C-<return>") 'keyboard-quit)
 
 ;; 絶対キー定義.
 (bind-keys*
   ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
-
   ("C-d"   . delete-char)                                               ;DEL
   ("M-d"   . delete-char)                                               ;DEL
  ; ("C-M-d"   . kill-word)                                               ;単語DEL
