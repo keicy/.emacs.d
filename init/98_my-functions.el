@@ -87,6 +87,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; その他編集.
 
+; 前の単語を削除(copyではなく)
+(defun keicy-backward-delete-word (arg)
+  (interactive "p")
+  (keicy-delete-word (- arg)))
+
+; 後の単語を削除(copyではなく)
+(defun keicy-delete-word (arg)
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
 ;;行削除 (キルリングに登録しない)
 (defun keicy-delete-line-nokillring ()
   (interactive)

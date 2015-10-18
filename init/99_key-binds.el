@@ -103,50 +103,39 @@
 
 ;; 【絶対キー】編集.
 (bind-keys*
-  ("C-a"   . seq-home)                                                  ;行頭/文頭/ファイル頭
-  ("C-d"   . delete-char)                                               ;DEL
-  ("M-d"   . delete-char)                                               ;DEL
- ; ("C-M-d"   . kill-word)                                               ;単語DEL
-  ("C-S-d"   . keicy-delete-line-nokillring)                                               ;行削除
-  ("C-f"   . delete-backward-char)                                      ;Backspace
-  ("M-f"   . delete-backward-char)                                      ;Backspace
- ; ("C-M-f"   . kill-word -1)                                      ;単語Backspace
- ; ("C-S-f"   . kill-word -1)                                      ;単語Backspace
- 
-  ("C-g"   . undo)                                                      ;アンドゥ
-  ("C-M-g"   . redo)                                                      ;リドゥ
- 
-  ("M-j"   . backward-char)                                             ;一文字戻る
-  ("C-M-j"   . backward-word)                                             ;一単語戻る
-  ("M-k"   . previous-line)                                             ;一行上がる
-  ("M-l"   . next-line)                                                 ;一行下がる
-  ("M-;"   . forward-char)                                              ;一文字進む
-  ("C-M-;"   . forward-word)                                              ;一単語進む
- 
-  ("M-:"   . seq-end)                                                   ;行末/文末/ファイル末
- 
-  ("M-v"   . kill-region)                                               ;切り取り
-  ("C-v"   . kill-ring-save)                                            ;コピー
-  ("C-M-v" . yank)                                                      ;ペースト
-
-  ("M-n"   . scroll-down)                                               ;次ページ
-  ("C-M-n"   . scroll-up)                                                ;前ページ
-  ("C-n" . recenter-top-bottom)                                       ;ページ再描写
-
-  ("M-b"   . seq-upcase-backward-word)                                  ;大文字
-  ("C-M-b"   . seq-capitalize-backward-word)                              ;頭を大文字
-  ("C-b" . seq-downcase-backward-word)                                ;小文字
-  
-  ("M-m" . split-window-horizontally)                                ;ウィンドウ左右分割
-  ;; rf. above -  Dispatch Enter key from C-m.
-  ("C-6" . delete-window)                                            ;ウィンドウ消去
-  ("C-M-m" . delete-other-windows)                                   ;他ウィンドウ消去
-
-  ("C-<tab>" . keicy-window-or-split)                                ;ウィンドウ切替
-  ("C-x C-b" . switch-to-buffer)                                     ;バッファ切替
-  
-  ("<f2>" . swap-screen-with-cursor)                           ;ウィンドウ左右入替(カーソルハイライト変更なし)
-  ("S-<f2>" . swap-screen)                                     ;ウィンドウ左右入替(カーソルハイライト変更)
+  ("C-a" . seq-home) ;行頭/文頭/ファイル頭
+  ("C-d" . delete-char) ;DEL
+  ("M-d" . delete-char) ;DEL
+  ("C-M-d" . keicy-delete-word) ;単語DEL
+  ("C-S-d" . keicy-delete-line-nokillring) ;行削除
+  ("C-f" . delete-backward-char) ;Backspace
+  ("M-f" . delete-backward-char) ;Backspace
+  ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+  ("C-g"  . undo) ;アンドゥ
+  ("C-M-g" . redo) ;リドゥ
+  ("M-j" . backward-char) ;一文字戻る
+  ("C-M-j" . backward-word) ;一単語戻る
+  ("M-k" . previous-line) ;一行上がる
+  ("M-l" . next-line) ;一行下がる
+  ("M-;" . forward-char) ;一文字進む
+  ("C-M-;" . forward-word) ;一単語進む
+  ("M-:" . seq-end) ;行末/文末/ファイル末
+  ("M-v" . kill-region) ;切り取り
+  ("C-v" . kill-ring-save) ;コピー
+  ("C-M-v" . yank) ;ペースト
+  ("M-n" . scroll-down) ;次ページ
+  ("C-M-n" . scroll-up) ;前ページ
+  ("C-n" . recenter-top-bottom) ;ページ再描写
+  ("M-b" . seq-upcase-backward-word) ;大文字
+  ("C-M-b" . seq-capitalize-backward-word) ;頭を大文字
+  ("C-b" . seq-downcase-backward-word) ;小文字
+  ("M-m" . split-window-horizontally) ;ウィンドウ左右分割
+  ("C-6" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
+  ("C-M-m" . delete-other-windows) ;他ウィンドウ消去
+  ("C-<tab>" . keicy-window-or-split) ;ウィンドウ切替
+  ("C-x C-b" . switch-to-buffer) ;バッファ切替
+  ("<f2>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
+  ("S-<f2>" . swap-screen) ;ウィンドウ左右入替(カーソルハイライト変更)
 )
 
 
