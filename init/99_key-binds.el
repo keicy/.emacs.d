@@ -136,7 +136,6 @@
   ("C-x C-b" . switch-to-buffer) ;バッファ切替
   ("<f2>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
   ("S-<f2>" . swap-screen) ;ウィンドウ左右入替(カーソルハイライト変更)
-  ("<zenkaku-hankaku>" . toggle-input-method) ;日本語入力
   )
 
 
