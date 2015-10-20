@@ -12,7 +12,7 @@ emacs
 ```
 Finish el-get initialize, then shut off emacs. 
 ```
-;;for avoiding bug? of el-get-lock, if there whould be el-get.lock flycheck doesn't work...
+;;for avoiding bug? of el-get-lock, if there whould be el-get.lock flycheck didn't work...
 git update-index --skip-worktree el-get.lock
 rm ./el-get.lock 
 ```
