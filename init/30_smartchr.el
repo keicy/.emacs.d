@@ -1,14 +1,14 @@
 (bundle smartchr)
-(add-hook 'lisp-mode-hook 'keicy-common-lisp-chrset)
-(add-hook 'slime-repl-mode-hook 'keicy-common-lisp-chrset)
+(add-hook 'lisp-mode-hook 'keicy:smartchr:cl:chrset)
+(add-hook 'slime-repl-mode-hook 'keicy:smartchr:cl:chrset)
 
 ;;;; 大文字はC-M-b系のキーバインドで入力する.
 
-(defun keicy-common-lisp-chrset ()
+(defun keicy:smartchr:cl:chrset ()
   (progn
     (local-set-key (kbd "A") (smartchr '("(apply `!!')" "A")))
     (local-set-key (kbd "C") (smartchr '("(cond `!!')" "C")))
-    (local-set-key (kbd "D") (smartchr '("(defun `!!')" "(defvar `!!')" "(defmacro `!!')" "(defparameter `!!')" "D")))
+    (local-set-key (kbd "D") (smartchr '("(defun `!!')" "(defvar `!!')" "(defmacro `!!')" "(defparameter `!!')" keicy:smartchr:cl:defpackage "D")))
     (local-set-key (kbd "E") (smartchr '("(eql `!!')" "(equal `!!')" "(equalp `!!')" "E")))
     (local-set-key (kbd "F") (smartchr '("(funcall `!!')" "F")))
     (local-set-key (kbd "G") (smartchr '("(getf `!!')" "G")))
@@ -24,3 +24,13 @@
     (local-set-key (kbd ",") (smartchr '("," ",@")))
     (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
   ))
+
+(defun keicy:smartchr:cl:defpackage ()
+ ""
+ "(in-package :cl-user)
+(defpackage :`!!'
+  (:use :cl
+        :cl-annot)
+  (:import-from :)
+(in-package :)
+(syntax:use-syntax :annot)")
