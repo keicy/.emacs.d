@@ -199,10 +199,11 @@
 
 ;; Elscreen.
 (absb elscreen
-  ("C->" elscreen-next)
-  ("C-<prior>" elscreen-next)
   ("C-<" elscreen-previous)
-  ("C-<next>" elscreen-previous))
+  ("C-<prior>" elscreen-previous)
+  ("C->" elscreen-next)
+  ("C-<next>" elscreen-next)
+  )
 (keicy-util elscreen
   ("n" elscreen-create)
   ("k" elscreen-kill)
