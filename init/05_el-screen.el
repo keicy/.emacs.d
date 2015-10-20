@@ -1,4 +1,4 @@
-;;;; !!! 06_powerline と干渉するためそれより前にロードすること!!!
+;;;; !!! 07_powerline と干渉するためそれより前にロードすること!!!
 
 (bundle! elscreen
   (setq elscreen-tab-display-kill-screen nil)
