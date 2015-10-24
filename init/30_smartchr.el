@@ -25,6 +25,9 @@
     (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
   ))
 
+; TODO -> replace YAsnnipet.
+	; http://fukuyama.co/yasnippet
+	; http://konbu13.hatenablog.com/entry/2014/01/12/113300
 (defun keicy:smartchr:cl:defpackage ()
  ""
  "(in-package :cl-user)
