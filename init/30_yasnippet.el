@@ -4,4 +4,7 @@
   (setq yas-snippet-dirs
         `(,builtin-items ,custom-items)))
 (yas-global-mode 1)
-(custom-set-variables '(yas-trigger-key "TAB"))
+;(custom-set-variables '(yas-trigger-key "<C-M-tab>")) ;not work.. so set under lines instead.
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<C-M-tab>") 'yas-expand)

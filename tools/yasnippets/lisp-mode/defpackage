@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: defpackage
+# key: defp
+# --
+(in-package :cl-user)
+(defpackage ${1: name}
+  (:use :cl)
+  (:shadow {:symbol} )
+  (:shadowing-import-from {:package} {:symbol}... )
+  (:import-from {:package} {:symbol}... )
+  (:export : ))
+(in-package :$1)
+
+$0
