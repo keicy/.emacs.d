@@ -3,12 +3,16 @@
 # key: defp
 # --
 (in-package :cl-user)
-(defpackage ${1: name}
+(require : #P"")
+(provide :${1:name})
+(defpackage $1
   (:use :cl)
   (:shadow {:symbol} )
   (:shadowing-import-from {:package} {:symbol}... )
   (:import-from {:package} {:symbol}... )
-  (:export : ))
+  (:export :)
+)
 (in-package :$1)
+
 
 $0
