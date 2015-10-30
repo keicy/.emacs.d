@@ -19,7 +19,7 @@
     (local-set-key (kbd "S") (smartchr '("(setf `!!')" "S")))
     (local-set-key (kbd "U") (smartchr '("(unless `!!')" "U")))
     (local-set-key (kbd "W") (smartchr '("(when `!!')" "W")))
-    (local-set-key (kbd "#") (smartchr '("#'" "#P" "#")))
+    (local-set-key (kbd "#") (smartchr '("#'" "#P" "#|" "|#" "#")))
     (local-set-key (kbd "@") (smartchr '(",@" "`" "@")))
     (local-set-key (kbd ",") (smartchr '("," ",@")))
     (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
