@@ -7,6 +7,7 @@
 (defun keicy:smartchr:cl:chrset ()
   (progn
     (local-set-key (kbd "A") (smartchr '("(apply `!!')" "A")))
+    (local-set-key (kbd "B") (smartchr '("&body body`!!'" "B")))
     (local-set-key (kbd "C") (smartchr '("(cond `!!')" "C")))
     (local-set-key (kbd "D") (smartchr '("(defun `!!')" "(defvar `!!')" "(defmacro `!!')" "(defparameter `!!')" "D")))
     (local-set-key (kbd "E") (smartchr '("(eql `!!')" "(equal `!!')" "(equalp `!!')" "E")))
@@ -14,7 +15,7 @@
     (local-set-key (kbd "G") (smartchr '("(getf `!!')" "G")))
     (local-set-key (kbd "I") (smartchr '("(if `!!')" "I")))
     (local-set-key (kbd "J") (smartchr '("(`!!')" "\"`!!'\"" "((`!!'))" "J")))
-    (local-set-key (kbd "L") (smartchr '("(let ((`!!')))" "(loop `!!')" "L")))
+    (local-set-key (kbd "L") (smartchr '("(let ((`!!')))" "let ((`!!'))" "(loop `!!')" "L")))
     (local-set-key (kbd "P") (smartchr '(keicy:smartchr:cl:progn "Q")))
     (local-set-key (kbd "Q") (smartchr '("'" "`" "Q")))
     (local-set-key (kbd "S") (smartchr '("(setf `!!')" "S")))
