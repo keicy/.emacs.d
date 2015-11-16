@@ -23,7 +23,7 @@
     (local-set-key (kbd "W") (smartchr '("(when `!!')" "(with-gensyms (`!!'))" "W")))
     (local-set-key (kbd "#") (smartchr '("#'" "#P" "#|" "|#" "#")))
     (local-set-key (kbd "@") (smartchr '(",@" "`" "@")))
-    (local-set-key (kbd ",") (smartchr '("," ",@")))
+    (local-set-key (kbd ",") (smartchr '("," "'," ",@")))
     (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
   ))
 
