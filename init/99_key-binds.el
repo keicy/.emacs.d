@@ -125,12 +125,20 @@
 ;  ("M-l" . next-line) ;一行下がる
 ;  ("M-;" . forward-char) ;一文字進む
 ;  ("C-M-;" . forward-word) ;一単語進む
-  ("M-j" . backward-char) ;一文字戻る
-  ("C-M-j" . backward-word) ;一単語戻る
-  ("M-k" . forward-char) ;一文字進む
-  ("C-M-k" . forward-word) ;一単語進む
-  ("M-l" . previous-line) ;一行上がる
-  ("M-;" . next-line) ;一行下がる
+
+;  ("M-j" . backward-char) ;一文字戻る
+;  ("C-M-j" . backward-word) ;一単語戻る
+;  ("M-k" . forward-char) ;一文字進む
+;  ("C-M-k" . forward-word) ;一単語進む
+;  ("M-l" . previous-line) ;一行上がる
+;  ("M-;" . next-line) ;一行下がる
+
+  ("M-l" . backward-char) ;一文字戻る
+  ("C-M-l" . backward-word) ;一単語戻る
+  ("M-;" . forward-char) ;一文字進む
+  ("C-M-;" . forward-word) ;一単語進む
+  ("M-j" . previous-line) ;一行上がる
+  ("M-k" . next-line) ;一行下がる
 
   ("M-:" . seq-end) ;行末/文末/ファイル末
   ("M-v" . kill-region) ;切り取り
