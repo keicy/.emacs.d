@@ -24,7 +24,7 @@
     (local-set-key (kbd "#") (smartchr '("#'" "#P" "#|" "|#" "#")))
     (local-set-key (kbd "@") (smartchr '(",@" "`" "@")))
     (local-set-key (kbd ",") (smartchr '("," "'," ",@")))
-    (local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
+    ;(local-set-key (kbd "*") (smartchr '("*`!!'*" "*")))
   ))
 
 (defun keicy:smartchr:cl:progn ()
