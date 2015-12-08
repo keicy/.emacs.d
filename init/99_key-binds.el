@@ -144,9 +144,9 @@
   ("M-v" . kill-region) ;切り取り
   ("C-v" . kill-ring-save) ;コピー
   ("C-M-v" . yank) ;ペースト
-  ("M-n" . scroll-down) ;次ページ
-  ("C-M-n" . scroll-up) ;前ページ
-  ("C-n" . recenter-top-bottom) ;ページ再描写
+  ("C-n" . scroll-down) ;次ページ
+  ("M-n" . scroll-up) ;前ページ
+  ("C-M-n" . recenter-top-bottom) ;ページ再描写
   ("C-b" . seq-capitalize-backward-word) ;頭を大文字
   ("C-M-b" . seq-upcase-backward-word) ;大文字
   ("M-b" . seq-downcase-backward-word) ;小文字
