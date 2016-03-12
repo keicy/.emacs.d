@@ -2,7 +2,8 @@
   "node" : true,
   "strict" : true,  // "use strict" を強制
   "unused" : true,  // 宣言したきり使っていない変数を検出
-
+  "esnext" : true,
+  
   // グローバル変数へのアクセスの管理
   "undef" : true,  // グローバル変数へのアクセスを禁止
   "browser" : true,  // ブラウザ用のやつは許可
