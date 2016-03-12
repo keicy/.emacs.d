@@ -5,7 +5,12 @@
 (defun i ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d/init")
-  (load-file "~/.emacs.d/init.el"))  
+  (load-file "~/.emacs.d/init.el"))
+
+;; ansi-term 起動コマンド
+(defun s ()
+  (interactive)
+  (ansi-term "/bin/bash"))
 
 
 
