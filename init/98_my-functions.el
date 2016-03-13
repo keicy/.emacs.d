@@ -19,13 +19,14 @@
 
 ;;ウィンドウ切替
 ;;分割していない時に押すと分割する
-;;移動後、そのバッファにslime-replが表示されていた場合にはカーソルを1つ進める
+;;移動後、そのバッファが各言語のreplの場合にはカーソルを1つ進める
 (defun keicy-window-or-split ()
   (interactive)
   (when (one-window-p)
     (split-window-horizontally))
   (other-window 1)
-  (when (string= (buffer-name) "*slime-repl sbcl*")
+  (when (or (string= (buffer-name) "*slime-repl sbcl*")
+            (string= (buffer-name) "*haskell*"))
     (forward-char 1)))
 
 ;ウィンドウ左右入替(カーソルハイライト変更なし)
