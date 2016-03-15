@@ -151,8 +151,9 @@
   ("C-M-b" . seq-upcase-backward-word) ;大文字
   ("M-b" . seq-downcase-backward-word) ;小文字
   ("M-m" . split-window-horizontally) ;ウィンドウ左右分割
-  ("C-6" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
-  ("C-M-m" . delete-other-windows) ;他ウィンドウ消去
+; 下記定義Multiple-CursorsとC-6は競合
+;  ("C-6" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
+;  ("C-M-m" . delete-other-windows) ;他ウィンドウ消去
   ("C-<tab>" . keicy-window-or-split) ;ウィンドウ切替
   ("C-x C-b" . switch-to-buffer) ;バッファ切替
   ("<f2>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
@@ -292,9 +293,9 @@
 ;;Twittering-mode.
 
 ;;Slime.
-(keicy-util slime
-  ("s" slime)
-)
+;(keicy-util slime
+;  ("s" slime)
+;)
 ;(bind-keys :map lisp-mode-map
 ;           ("C-q" . slime-load-file)
 ;           ("C-w" . slime-compile-and-load-file)

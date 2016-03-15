@@ -12,9 +12,4 @@
                (when (equal web-mode-content-type "jsx")
                  ;; enable flycheck
                  (flycheck-select-checker 'jsxhint-checker)
-                 
-                 ;(setq flycheck-disabled-checkers
-                 ;  (append flycheck-disabled-checkers
-                 ;    '(javascript-jshint)))
-                 ;(flycheck-add-mode 'javascript-eslint 'web-mode)
                  (flycheck-mode))))
