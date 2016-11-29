@@ -69,12 +69,15 @@
 ;; file名の補完で大文字小文字を区別しない
 (setq completion-ignore-case t)
 
+;; バッファ自動再読み込み
+(global-auto-revert-mode 1)
+
 ;;find-file のデフォルトパスを設定
 (setq default-directory "~/dev/")
 (setq command-line-default-directory "~/dev/")
 
 ;; モードラインに現在時刻を表示する
-(display-time)
+;(display-time)
 
 ;; デフォルトのフォントサイズ
 (set-frame-font "Monospace-14")
@@ -82,3 +85,18 @@
 ;; デフォルトの連携ブラウザ
 (setq browse-url-browser-function 'browse-url-generic
           browse-url-generic-program "chromium-browser")
+
+;;CLの関数を有効化
+(require 'cl-lib)
+
+;;各種設定ファイル用のメジャーモード有効化
+(require 'generic-x)
+
+;; (),{}などの対応を自動で入れる
+(electric-pair-mode t)
+
+;; 対応する括弧を光らせる。
+(show-paren-mode 1)
+
+;; ウィンドウ内に収まらないときだけ括弧内も光らせる。
+(setq show-paren-style 'mixed)

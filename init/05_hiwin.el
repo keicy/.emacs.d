@@ -1,3 +1,5 @@
+; アクティブwindowの色付けによる可視化
+
 (bundle elpa:hiwin
   (hiwin-activate)
 ;  (set-face-background 'hiwin-face "gainsboro")) ;for aliceblue 非アクティブウィンドウの背景色を設定
