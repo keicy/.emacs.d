@@ -118,6 +118,7 @@
 
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-q"))
+(global-unset-key (kbd "M-j"))
 
 
 
@@ -141,10 +142,10 @@
 
 (bind-keys*
 
-  ("M-b M-b" . helm-buffers-list) ;バッファ切替
-  ("M-b b" . helm-buffers-list) ;バッファ切替
-  ("M-b M-f" . find-file) ;ファイル参照
-  ("M-b f" . find-file) ;ファイル参照
+  ("M-b M-b" . helm-mini) ;バッファ切替
+  ("M-b b" . helm-mini) ;バッファ切替
+  ("M-b M-f" . helm-find-files) ;ファイル参照
+  ("M-b f" . helm-find-files) ;ファイル参照
   ("C-<tab>" . keicy-window-or-split) ;ウィンドウ切替
 
 ; ＝ここまで実施 11/14＝
@@ -283,12 +284,33 @@
 (keicy-util ag
   ("g" ag-at-hand))
 
-;; @@  表示向上 (Helm)  @@
+;; @@  インタフェースツール (Helm)  @@
 
-;(absb helm
-;  ("M-x" helm-M-x)
-;  ("C-x C-f" helm-find-files)
-;  ("C-x C-r" helm-recentf)
-;  ("C-z C-b" helm-buffers-list)
-;  ("C-z b" helm-buffers-list)
-;)
+(defvar keicy-helm-mini-buffer-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-<return>")    'helm-keyboard-quit)
+    (define-key map (kbd "M-k")           'helm-execute-persistent-action)
+    (define-key map (kbd "M-i")           'helm-previous-line)
+    (define-key map (kbd "M-n")           'helm-next-line)
+    (define-key map (kbd "C-f")           'delete-backward-char)
+    (define-key map (kbd "C-M-f")         'keicy-backward-delete-word)
+    map))
+
+(define-minor-mode keicy-helm-mini-buffer-mode
+  "A minor mode to be defined helm mini buffer specific key bindings."
+  :init-value nil
+  :lighter ""
+)
+
+(add-to-list 'emulation-mode-map-alists
+             `((keicy-helm-mini-buffer-mode . ,keicy-helm-mini-buffer-map)))
+
+(add-hook 'helm-minibuffer-set-up-hook (lambda () (keicy-helm-mini-buffer-mode 1)))
+(add-hook 'helm-minibuffer-set-up-hook (lambda () (override-global-mode -1)))
+
+(bind-keys :map helm-find-files-map
+           ("M-j" . helm-find-files-up-one-level)
+)
+(bind-keys :map helm-read-file-map
+           ("M-j" . helm-find-files-up-one-level)
+)
