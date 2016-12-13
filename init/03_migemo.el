@@ -1,3 +1,5 @@
+; pre-require: `$ sudo apt-get install cmigemo`
+
 (bundle! migemo
   (setq migemo-command "cmigemo")
   (setq migemo-options '("-q" "--emacs"))
