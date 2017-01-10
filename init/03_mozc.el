@@ -1,6 +1,26 @@
-; 99_key-binds.elの C-mキーをRTNキーから分離する設定と
-; 相性悪く、日本語モードではRTNキーで改行できない。(newline)で対処するか、上記を諦めるかしかない。
-; 原状、上記を諦めた。
+; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
+;                                                                       ;
+;                               メモ                                    ;
+;                                                                       ;
+; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
+
+;; キーバインドとの悪相性
+  ; mozc と 99_key-binds.elの C-mキーをRTNキーから分離する設定とは相性が悪く、
+  ; 日本語モードではRTNキーで改行できない。(newline)で対処するか、上記を諦めるかしかない。
+  ; 原状、上記を諦めた。
+
+;; OS側の設定
+  ; mozcサーバ側に、変換中のキー操作を定義することができる。
+  ; http://log-c.blog.so-net.ne.jp/2011-08-24-3
+  ; http://washieagle.blogspot.jp/2010/10/scim-mozcemacs.html
+
+
+
+; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
+;                                                                       ;
+;                               設定                                    ;
+;                                                                       ;
+; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
 
 (bundle! mozc
   (set-language-environment "Japanese")
@@ -14,13 +34,15 @@
 ;; キー設定
 (global-set-key (kbd "<zenkaku-hankaku>") 'toggle-input-method)
 (global-set-key (kbd "C-v") 'toggle-input-method)
-;(custom-set-variables '(mozc-mode-string "[Mo]")) ; 画面左端の表示、デフォルトは "[Mozc]", この行を削除した場合はこれが表示される
+;(custom-set-variables '(mozc-leim-title "【JP】")) ; 画面左端の表示、デフォルトは "[Mozc]"
+;(custom-set-variables '(mozc-leim-title "【日本語】"))
+(custom-set-variables '(mozc-leim-title nil))
 
 ;; 上記 toggle-input-method を用いた設定が不安定な時用の設定
   ; ただし、下記カーソル色切替が効かない、画面右下に表示がでない、など弊害があるため使いたくない。
 ;(global-set-key (kbd "<zenkaku-hankaku>") 'mozc-mode)
 ;(global-set-key (kbd "C-v") 'mozc-mode)
-;(custom-set-variables '(mozc-leim-title "[Mozc]")) ; この行を設定しないとなにも表示してくれないので注意
+;(custom-set-variables '(mozc-mode-string "[Mozc]")) ; この行を設定しないとなにも表示してくれないので注意
 
 ;; カーソル色切替
   ; 色見本 : http://life.a.la9.jp/hp/color/rgb-tab-pc.html
@@ -29,11 +51,6 @@
           (lambda() (set-cursor-color "DeepPink")))
 (add-hook 'input-method-inactivate-hook
           (lambda() (set-cursor-color "orange"))) ; ここは 02_theme.el で読み込んでいるテーマファイルで設定されている `cursor` の色に合わせる
-
-;; OS側の設定メモ
-  ; mozcサーバ側に、変換中のキー操作を定義することができる。
-  ; http://log-c.blog.so-net.ne.jp/2011-08-24-3
-  ; http://washieagle.blogspot.jp/2010/10/scim-mozcemacs.html
 
 ;; ミニバッファでの日本語入力を無効化(migemo があるため必要ない)
 (defun when-return-from-minibuffer()
