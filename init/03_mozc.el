@@ -35,29 +35,10 @@
   ; http://log-c.blog.so-net.ne.jp/2011-08-24-3
   ; http://washieagle.blogspot.jp/2010/10/scim-mozcemacs.html
 
-
 ;; ミニバッファでの日本語入力を無効化(migemo があるため必要ない)
-(defvar ime-active-p nil)
-
-(defun my-into-minibuffer-func()
+(defun when-return-from-minibuffer()
   (if current-input-method
-      (progn
-        (setq ime-active-p t)
-        (toggle-input-method)
-        ;(set-cursor-color "orange")
-          ;; なぜかこれがあっても M-x ではカーソル色が変わらない、、。
-          ;; そしてこれがなくても他のhelmなどでは勝手に復元してくれる。
-          ;; なのでこれはコメントアウト。
-        )))
+      (set-cursor-color "DeepPink")))
 
-(defun my-quit-minibuffer-func()
-  (if ime-active-p
-      (progn
-        (setq ime-active-p nil)
-        (set-cursor-color "DeepPink")
-        )))
-
-(add-hook 'minibuffer-setup-hook 'my-into-minibuffer-func)
-;(add-hook 'helm-minibuffer-set-up-hook 'my-into-minibuffer-func)
-  ;; これは↑の行で含まれているので設定しなくて良い模様。コメントアウトしておく。
-(add-hook 'focus-in-hook 'my-quit-minibuffer-func)
+(add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+(add-hook 'focus-in-hook 'when-return-from-minibuffer)
