@@ -10,7 +10,9 @@
   ; 原状、上記を諦めた。
 
 ;; OS側の設定
-  ; mozcサーバ側に、変換中のキー操作を定義することができる。
+  ; mozcサーバ側に、変換中のキー操作を定義することができ、する必要がある。
+  ; https://github.com/keicy/.emacs.d/issues/12 を参照。
+  ; 参考
   ; http://log-c.blog.so-net.ne.jp/2011-08-24-3
   ; http://washieagle.blogspot.jp/2010/10/scim-mozcemacs.html
 
