@@ -100,3 +100,6 @@
 
 ;; ウィンドウ内に収まらないときだけ括弧内も光らせる。
 (setq show-paren-style 'mixed)
+
+;; カーソルの点滅を OFF にする
+(blink-cursor-mode 0)
