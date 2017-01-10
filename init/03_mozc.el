@@ -30,7 +30,15 @@
 (add-hook 'input-method-inactivate-hook
           (lambda() (set-cursor-color "orange"))) ; ここは 02_theme.el で読み込んでいるテーマファイルで設定されている `cursor` の色に合わせる
 
-; OS側の設定メモ
-; mozcサーバ側に、変換中のキー操作を定義することができる。
+;; OS側の設定メモ
+  ; mozcサーバ側に、変換中のキー操作を定義することができる。
   ; http://log-c.blog.so-net.ne.jp/2011-08-24-3
   ; http://washieagle.blogspot.jp/2010/10/scim-mozcemacs.html
+
+;; ミニバッファでの日本語入力を無効化(migemo があるため必要ない)
+(defun when-return-from-minibuffer()
+  (if current-input-method
+      (set-cursor-color "DeepPink")))
+
+(add-hook 'minibuffer-setup-hook 'deactivate-input-method)
+(add-hook 'focus-in-hook 'when-return-from-minibuffer)
