@@ -234,6 +234,8 @@
            ("C-e" . isearch-repeat-forward)
            ("C-S-e" . isearch-repeat-backward)
            ("C-h" . isearch-ring-retreat)
+           ("M-u" . isearch-yank-kill)
+           ("M-p" . isearch-yank-word-or-char)
 )
 (bind-keys :map minibuffer-local-isearch-map
            ("C-e" . isearch-reverse-exit-minibuffer)
