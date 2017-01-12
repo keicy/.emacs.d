@@ -299,6 +299,7 @@
     (define-key map (kbd "M-n")           'helm-next-line)
     (define-key map (kbd "C-f")           'delete-backward-char)
     (define-key map (kbd "C-M-f")         'keicy-backward-delete-word)
+    (define-key map (kbd "M-u")           'yank)
     map))
 
 (define-minor-mode keicy-helm-mini-buffer-mode
