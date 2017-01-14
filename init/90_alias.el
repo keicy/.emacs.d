@@ -1,4 +1,5 @@
 (defalias 'egi 'el-get-install)
 (defalias 'j 'open-junk-file)
+(defalias 'e 'ensime)
 (defalias 'h 'run-haskell)
 (defalias 'l 'slime)
