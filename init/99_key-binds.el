@@ -320,3 +320,14 @@
 (bind-keys :map helm-read-file-map
            ("M-j" . helm-find-files-up-one-level)
 )
+
+;; @@  入力補完ツール (Company)  @@
+
+(with-eval-after-load-feature 'company
+  (bind-keys :map company-active-map
+             ("C-<return>" . company-abort)
+             ("M-p" . nil)
+             ("M-i" . company-select-previous)
+             ("M-n" . company-select-next) ;デフォルトでこれだが明示的に
+             ;("<tab>" . company-complete-common-or-cycle) ; デフォルト: company-complete-common
+))
