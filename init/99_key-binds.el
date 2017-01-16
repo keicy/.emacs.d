@@ -347,12 +347,12 @@
 ;;; Scala REPL
 
 ; 絶対バインドを無効化
-(add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
-(with-eval-after-load-feature 'ensime
+(defun keicy-ensime-inf-mode-binds()
   (bind-keys :map ensime-inf-mode-map
              ; システムコマンド
              ("M-<return>" . execute-extended-command)
              ("C-<tab>" . keicy-window-or-split)
+             ("C-<return>" . comint-accumulate) ; デフォルトで M-<return> に割り当てられていたもの,複数行入力用の改行コマンド
              ; 編集
              ("M-j" . backward-char) ;一文字戻る
              ("C-M-j" . backward-word) ;一単語戻る
@@ -365,3 +365,5 @@
              ("M-," . beginning-of-line) ;行頭
              ("M-." . end-of-line) ;行末
 ))
+(add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
+(add-hook 'ensime-inf-mode-hook 'keicy-ensime-inf-mode-binds)
