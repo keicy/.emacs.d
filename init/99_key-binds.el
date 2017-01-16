@@ -174,8 +174,8 @@
   ("M-," . seq-home) ;行頭/文頭/ファイル頭
   ("M-." . seq-end) ;行末/文末/ファイル末
 
-  ("C-w" . goto-last-change) ;直前の編集箇所に戻る
-  ("C-S-w" . goto-last-change-reverse) ;直後の編集箇所に戻る
+  ("M-l" . goto-last-change) ;直前の編集箇所に戻る
+  ("M-L" . goto-last-change-reverse) ;直後の編集箇所に戻る
 
   ;;; 編集
   
