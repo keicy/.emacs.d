@@ -331,3 +331,37 @@
              ("M-n" . company-select-next) ;デフォルトでこれだが明示的に
              ;("<tab>" . company-complete-common-or-cycle) ; デフォルト: company-complete-common
 ))
+
+;; @@  Scala 開発環境 (ENSIME)  @@
+
+;;; ENSIME
+
+(with-eval-after-load-feature 'ensime
+  (bind-keys :map ensime-mode-map
+             ("M-@" . ensime-edit-definition)
+             ("M-`" . ensime-pop-find-definition-stack)
+             ("M-[" . ensime-backward-note)
+             ("M-]" . ensime-forward-note)
+))
+
+;;; Scala REPL
+
+; 絶対バインドを無効化
+(add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
+(with-eval-after-load-feature 'ensime
+  (bind-keys :map ensime-inf-mode-map
+             ; システムコマンド
+             ("M-<return>" . execute-extended-command)
+             ("C-<tab>" . keicy-window-or-split)
+             ; 編集
+             ("M-j" . backward-char) ;一文字戻る
+             ("C-M-j" . backward-word) ;一単語戻る
+             ("M-k" . forward-char) ;一文字進む
+             ("C-M-k" . forward-word) ;一単語進む
+             ;("C-d" . delete-char) ;DEL ; これを追加すると `cntl-D` が効かなくなるので排除.ただこれがなくともデフォルトでこのバインドがシェル側に定義されているので困らない.
+             ("C-M-d" . keicy-delete-word) ;単語DEL
+             ("C-f" . delete-backward-char) ;Backspace
+             ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+             ("M-," . beginning-of-line) ;行頭
+             ("M-." . end-of-line) ;行末
+))
