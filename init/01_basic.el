@@ -103,3 +103,8 @@
 
 ;; カーソルの点滅を OFF にする
 (blink-cursor-mode 0)
+
+;; `customize-group` で保存したカスタム設定のファイル出力先
+(setq custom-file "~/.emacs.d/init/emacs-custom.el")
+;; カスタム設定をロード
+(load custom-file)
