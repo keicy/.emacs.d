@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: pro
+# key: pro
+# --
+object Main extends App {
+  $0
+}

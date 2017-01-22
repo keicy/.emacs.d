@@ -346,7 +346,6 @@
 
 ;;; Scala REPL
 
-; 絶対バインドを無効化
 (defun keicy-ensime-inf-mode-binds()
   (bind-keys :map ensime-inf-mode-map
              ; システムコマンド
@@ -364,6 +363,8 @@
              ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
              ("M-," . beginning-of-line) ;行頭
              ("M-." . end-of-line) ;行末
-))
+             ))
+
+; 絶対バインドを無効化
 (add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
 (add-hook 'ensime-inf-mode-hook 'keicy-ensime-inf-mode-binds)
