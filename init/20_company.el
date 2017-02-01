@@ -7,7 +7,7 @@
   (setq company-minimum-prefix-length 2)
 )
 
-; YASnippet を候補に表示するための設定
+; YASnippet のスニペットを候補に表示するための設定
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
