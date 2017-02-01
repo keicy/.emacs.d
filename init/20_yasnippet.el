@@ -18,9 +18,10 @@
                ("<tab>" . nil) ; 他プラグイン(入力補完など)との競合回避
     )
 
-    (yas-reload-all) ; スニペット読込
+    ; スニペット読込
+    (yas-reload-all)
 
     ; 有効にするモード
-    (add-hook 'scala-mode-hook #'yas-minor-mode)  
+    (add-hook 'scala-mode-hook #'yas-minor-mode)
   )
 )
