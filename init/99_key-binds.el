@@ -363,7 +363,7 @@
              ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
              ("M-," . beginning-of-line) ;行頭
              ("M-." . end-of-line) ;行末
-             ))
+))
 
 ; 絶対バインドを無効化
 (add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
