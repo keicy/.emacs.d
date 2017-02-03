@@ -320,3 +320,79 @@
 (bind-keys :map helm-read-file-map
            ("M-j" . helm-find-files-up-one-level)
 )
+
+;; @@  入力補完ツール (Company)  @@
+
+(with-eval-after-load-feature 'company
+  (bind-keys :map company-active-map
+             ("C-<return>" . company-abort)
+             ("M-p" . nil)
+             ("M-i" . company-select-previous)
+             ("M-n" . company-select-next) ;デフォルトでこれだが明示的に
+             ;("<tab>" . company-complete-common-or-cycle) ; デフォルト: company-complete-common
+))
+
+;; @@  Scala 開発環境 (ENSIME)  @@
+
+;;; ENSIME
+
+(with-eval-after-load-feature 'ensime
+  (bind-keys :map ensime-mode-map
+             ("M-@" . ensime-edit-definition)
+             ("M-`" . ensime-pop-find-definition-stack)
+             ("M-[" . ensime-backward-note)
+             ("M-]" . ensime-forward-note)
+))
+
+;;; Scala REPL
+
+(defun keicy-ensime-inf-mode-binds()
+  (bind-keys :map ensime-inf-mode-map
+
+             ; システムコマンド
+             ("M-<return>" . execute-extended-command)
+             ("C-<tab>" . keicy-window-or-split)
+             ("C-<return>" . comint-accumulate) ; デフォルトで M-<return> に割り当てられていたもの,複数行入力用の改行コマンド
+
+             ; 編集
+             ("C-g"  . undo) ;アンドゥ
+             ("C-S-g" . redo) ;リドゥ
+
+             ("M-o" . kill-region) ;切り取り
+             ("M-p" . kill-ring-save) ;コピー
+             ("M-u" . yank) ;ペースト
+
+             ("C-r" . seq-capitalize-backward-word) ;頭を大文字
+             ("C-M-r" . seq-upcase-backward-word) ;大文字
+             ("M-r" . seq-downcase-backward-word) ;小文字
+
+             ("M-j" . backward-char) ;一文字戻る
+             ("C-M-j" . backward-word) ;一単語戻る
+             ("M-k" . forward-char) ;一文字進む
+             ("C-M-k" . forward-word) ;一単語進む
+             ("M-i" . previous-line) ;一行上がる
+             ("M-n" . next-line) ;一行下がる
+
+             ("M-l" . goto-last-change) ;直前の編集箇所に戻る
+             ("M-L" . goto-last-change-reverse) ;直後の編集箇所に戻る
+
+             ;("C-d" . delete-char) ;DEL ; これを追加すると `cntl-D` が効かなくなるので排除.ただこれがなくともデフォルトでこのバインドがシェル側に定義されているので困らない.
+             ("C-M-d" . keicy-delete-word) ;単語DEL
+             ("C-f" . delete-backward-char) ;Backspace
+             ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+             ("M-," . beginning-of-line) ;行頭
+             ("M-." . end-of-line) ;行末
+
+             ; ページング
+             ("C-M-i" . scroll-down) ;前ページ
+             ("C-M-n" . scroll-up) ;次ページ
+             ("C-M-b" . recenter-top-bottom) ;ページ再描写
+
+             ; ターミナル
+             ("C-i" . comint-previous-input) ;コマンド履歴を辿る
+             ("C-n" . comint-next-input) ;コマンド履歴を戻る
+))
+
+; 絶対バインドを無効化
+(add-hook 'ensime-inf-mode-hook (lambda () (override-global-mode -1)))
+(add-hook 'ensime-inf-mode-hook 'keicy-ensime-inf-mode-binds)
