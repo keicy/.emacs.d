@@ -7,7 +7,9 @@ package $1
 import scala.io.StdIn._
 
 object Main extends App {
+
   $0
+
   val n = readInt()
   val xs = for (i <- 1 to n) yield readLine()
   xs.foreach(println)
