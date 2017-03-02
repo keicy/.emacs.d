@@ -1,6 +1,6 @@
 ; OVERRIDE Flycheck's elisp source codes @flycheck/flycheck.el.
   ; r.f. ) https://truongtx.me/2014/07/22/setup-php-development-environment-in-emacs 
-(with-eval-after-load-feature 'flycheck
+(with-eval-after-load-feature 'flycheck ; この行なしではエラーになるため注意！
   (flycheck-define-checker php
     "A PHP syntax checker using the PHP command line interpreter.
 
@@ -10,7 +10,7 @@
     :error-patterns
     ((error line-start (or "Parse" "Fatal" "syntax") " error" (any ":" ",") " "
             (message) " in " (file-name) " on line " line line-end))
-    :modes (php-mode php+-mode web-mode)
+    :modes (php-mode php+-mode web-mode) ; ここに追加している
     :next-checkers ((warning . php-phpmd)
                     (warning . php-phpcs)))
 
@@ -22,7 +22,7 @@
               (eval (flycheck-option-comma-separated-list
                      flycheck-phpmd-rulesets)))
     :error-parser flycheck-parse-phpmd
-    :modes (php-mode php+-mode web-mode)
+    :modes (php-mode php+-mode web-mode) ; ここに追加している
     :next-checkers (php-phpcs))
 
   (flycheck-define-checker php-phpcs
@@ -48,7 +48,7 @@
     (lambda (errors)
       (flycheck-sanitize-errors
        (flycheck-remove-error-file-names "STDIN" errors)))
-    :modes (php-mode php+-mode web-mode)
+    :modes (php-mode php+-mode web-mode) ; ここに追加している
     ;; phpcs seems to choke on empty standard input, hence skip phpcs if the
     ;; buffer is empty, see https://github.com/flycheck/flycheck/issues/907
     :predicate (lambda () (not (flycheck-buffer-empty-p))))
