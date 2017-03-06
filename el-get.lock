@@ -1,5 +1,11 @@
 (setq el-get-lock-package-versions
-      '((flycheck-pos-tip :checksum "88b5a6d7ce0f313cbd22d554ea248aab95357d33")
+      '((ac-php :checksum "dd04c95ed8a0b5787cb4bf536797cb14aff9991b")
+        (auto-complete :checksum "2e83566ddfa758c69afe50b8a1c62a66f47471e3")
+        (fuzzy :checksum "534d723ad2e06322ff8d9bd0ba4863d243f698e7")
+        (f :checksum "4ef57d1539a964a0d02b23becbe9b5e49b805d66")
+        (php-mode :checksum "aa69d062ea91e03ad84a378ed4f71c63846027d9")
+        (xcscope :checksum "1e4c8e60eb841a3ecb56ff4115b6a8ae5c0bf779")
+        (flycheck-pos-tip :checksum "88b5a6d7ce0f313cbd22d554ea248aab95357d33")
         (pos-tip :checksum "92c6b81591b32a0fb3da65f6a514ddcce1d277c0")
         (flycheck :checksum "da499ef6a7e3c8f4adec732703f34aea2a4e70a2")
         (seq :checksum "cdd5d2d24a8dc12ecbd4930193a374f2d0c35901")

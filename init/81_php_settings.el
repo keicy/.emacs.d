@@ -62,4 +62,7 @@
   (setq web-mode-code-indent-offset 4)
   (web-mode)
   (flycheck-mode)
+  (require 'company-php)
+  (company-mode t)
+  (add-to-list 'company-backends 'company-ac-php-backend)
 )
