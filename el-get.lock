@@ -1,5 +1,10 @@
 (setq el-get-lock-package-versions
-      '((ensime :checksum "42598cab15985e6fc5e95989b0c73e2259cdadf5")
+      '((flycheck-pos-tip :checksum "88b5a6d7ce0f313cbd22d554ea248aab95357d33")
+        (pos-tip :checksum "92c6b81591b32a0fb3da65f6a514ddcce1d277c0")
+        (flycheck :checksum "da499ef6a7e3c8f4adec732703f34aea2a4e70a2")
+        (seq :checksum "cdd5d2d24a8dc12ecbd4930193a374f2d0c35901")
+        (web-mode :checksum "6e4d7e96f2a699c2df3056609584e586f4667b39")
+        (ensime :checksum "42598cab15985e6fc5e95989b0c73e2259cdadf5")
         (popup :checksum "80829dd46381754639fb764da11c67235fe63282")
         (scala-mode :checksum "9b8db623b13fcb0aad9271d1fae73e1257dda13c")
         (sbt-mode :checksum "6caabd4e68fb878e743a29d16356a2c2c3bd7637")
