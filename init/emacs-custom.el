@@ -6,7 +6,6 @@
  '(ensime-auto-connect (quote always))
  '(ensime-auto-generate-config t)
  '(ensime-use-helm t)
- '(flycheck-pos-tip-timeout 60)
  '(mozc-leim-title nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
