@@ -5,7 +5,7 @@
 
   ; Normal HTML
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-  ; Riot.js
-  (add-to-list 'auto-mode-alist '("\\.tag\\'" . web-mode))
-  (setq web-mode-engines-alist '(("riot" . "\\.tag\\'")))
+  ; Riot.js > 81_riotjs.el
+  ;(add-to-list 'auto-mode-alist '("\\.tag\\'" . web-mode))
+  ;(setq web-mode-engines-alist '(("riot" . "\\.tag\\'")))
 )
