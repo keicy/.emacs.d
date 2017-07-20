@@ -1,5 +1,6 @@
 (setq el-get-lock-package-versions
-      '((dockerfile-mode :checksum "5f1e17e4e59fee4725c5b4cd9b5b49f1faaa108f")
+      '((js2-mode :checksum "890cf817bbc206b2764c3f96f23613318bd47934")
+        (dockerfile-mode :checksum "5f1e17e4e59fee4725c5b4cd9b5b49f1faaa108f")
         (yaml-mode :checksum "1c3ade410fb0bf5b6f2140b099f0ef96836ee74e")
         (flycheck-pos-tip :checksum "88b5a6d7ce0f313cbd22d554ea248aab95357d33")
         (pos-tip :checksum "92c6b81591b32a0fb3da65f6a514ddcce1d277c0")
