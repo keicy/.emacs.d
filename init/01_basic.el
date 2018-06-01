@@ -84,7 +84,7 @@
 
 ;; デフォルトの連携ブラウザ
 (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "chromium-browser")
+          browse-url-generic-program "google-chrome")
 
 ;;CLの関数を有効化
 (require 'cl-lib)
