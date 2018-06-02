@@ -1,5 +1,8 @@
 (setq el-get-lock-package-versions
-      '((elm-mode :checksum "09c6e62e14a2c9afaad03a867c7a268b6bc68ab0")
+      '((json-mode :checksum "32d5a9b3319e6797c4d52e7d61a65e5638102ef4")
+        (json-snatcher :checksum "c4cecc0a5051bd364373aa499c47a1bb7a5ac51c")
+        (json-reformat :checksum "8eb6668ed447988aea06467ba8f42e1f2178246f")
+        (elm-mode :checksum "09c6e62e14a2c9afaad03a867c7a268b6bc68ab0")
         (f :checksum "de6d4d40ddc844eee643e92d47b9d6a63fbebb48")
         (js2-mode :checksum "890cf817bbc206b2764c3f96f23613318bd47934")
         (dockerfile-mode :checksum "5f1e17e4e59fee4725c5b4cd9b5b49f1faaa108f")

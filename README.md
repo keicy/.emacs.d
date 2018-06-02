@@ -6,6 +6,12 @@ It's a settings for emacs that v24.5 or later.
 ## Usage
 
 ```
+# OS側にEmacsから呼び出すモジュールを追加
+sudo apt install TODO
+npm i -g jsonlint
+```
+
+```
 ;; clone.
 git clone git@github.com:keicy/.emacs.d.git
 
