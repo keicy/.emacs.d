@@ -8,7 +8,11 @@ It's a settings for emacs that v24.5 or later.
 ```
 # OS側にEmacsから呼び出すモジュールを追加
 sudo apt install TODO
-npm i -g jsonlint
+npm i -g jsonlint tslint typescript
+
+## tslint と typescript はnpmのバグで同時にインストールしないと依存関係が解決できないことに留意
+  - `unmet peer dependency typescript`
+  - typescript は tslint の動作に必要
 ```
 
 ```
