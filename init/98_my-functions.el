@@ -54,10 +54,17 @@
 ;;; 改行.
 
 ;;末尾に移動して改行
-(defun keicy-endline-newline-indent ()
+(defun endline-newline-indent ()
   (interactive)
   (end-of-line)
   (newline-and-indent))
+
+;;末尾に移動して2行改行
+(defun endline-newline2-indent ()
+  (interactive)
+  (endline-newline-indent)
+  (previous-line)
+  (endline-newline-indent))
 
 ;;末尾に移動し";"を挿入して改行
 (defun keicy-endline-semicolon-newline-indent ()
@@ -94,15 +101,44 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; その他編集.
 
-; 前の単語を削除(copyではなく)
-(defun keicy-backward-delete-word (arg)
+; 記号も考慮して一単語戻る
+(defun backward-same-syntax (arg)
   (interactive "p")
-  (keicy-delete-word (- arg)))
+  (forward-same-syntax (- arg)))
+
+
+(setq viper-mode nil)
+(require 'viper)
+
+; 前の単語を削除(kill ring に登録しない)
+(defun backward-delete-word (arg)
+  (interactive "p")
+  (delete-region (point) (progn (viper-backward-word arg) (point))))
+
+; 後の単語を削除(kill ring に登録しない)
+(defun forward-delete-word (arg)
+  (interactive "p")
+  (delete-region (point) (progn (viper-forward-word arg) (point))))
+
+; 前の単語を削除(kill ring に登録しない)
+;(defun backward-delete-word (arg)
+;  (interactive "p")
+;  (forward-delete-word (- arg)))
+
+; 後の単語を削除(kill ring に登録しない)
+;(defun forward-delete-word (arg)
+;  (interactive "p")
+;  (delete-region (point) (progn (forward-same-syntax arg) (point))))
+
+; 前の単語を削除(copyではなく)
+;(defun keicy-backward-delete-word (arg)
+;  (interactive "p")
+;  (keicy-delete-word (- arg)))
 
 ; 後の単語を削除(copyではなく)
-(defun keicy-delete-word (arg)
-  (interactive "p")
-  (delete-region (point) (progn (forward-word arg) (point))))
+;(defun keicy-delete-word (arg)
+;  (interactive "p")
+;  (delete-region (point) (progn (forward-word arg) (point))))
 
 ;;行削除 (キルリングに登録しない)
 (defun keicy-delete-line-nokillring ()

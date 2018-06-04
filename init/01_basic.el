@@ -1,6 +1,14 @@
 ;; sync emacs & OS keyring
 (cond (window-system
-(setq x-select-enable-clipboard t)))
+      (setq x-select-enable-clipboard t)))
+
+;; kill ring にアイテムを追加する際にOSのクリップボードの最新の履歴を併せて追加する
+;; https://ayatakesi.github.io/emacs/25.1/Clipboard.html
+(setq save-interprogram-paste-before-kill t)
+
+;; ミニバッファコマンドとkill ring の履歴を永続化
+(savehist-mode)
+(push 'kill-ring savehist-additional-variables)
 
 ;; autosaveファイルを作らない
 (setq auto-save-default nil)
