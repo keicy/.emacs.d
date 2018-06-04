@@ -179,8 +179,8 @@
   ("M-i" . previous-line) ;一行上がる
   ("M-n" . next-line) ;一行下がる
 
-  ("M-," . seq-home) ;行頭/文頭/ファイル頭
-  ("M-." . seq-end) ;行末/文末/ファイル末
+  ("M-[" . seq-home) ;行頭/文頭/ファイル頭
+  ("M-{" . seq-end) ;行末/文末/ファイル末
 
   ("M-l" . goto-last-change) ;直前の編集箇所に戻る
   ("M-L" . goto-last-change-reverse) ;直後の編集箇所に戻る
