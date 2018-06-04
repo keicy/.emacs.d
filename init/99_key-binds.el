@@ -123,7 +123,7 @@
 
 
 ; #####   基本操作   ###
-  ;; 絶対バインドで設定
+  ;; 着本的に絶対バインドで設定
 
 ;; @@  システムプレフィックス(元C-x)  @@
 
@@ -131,8 +131,16 @@
 
 ;; @@  入力コマンドキャンセル(元C-g)  @@
 
-(bind-key* "C-<return>" 'keyboard-quit)
-(bind-key* "C-<return>" 'abort-recursive-edit minibuffer-local-map)
+;(bind-key* "C-<return>" 'keyboard-quit)
+;(bind-key* "C-<return>" 'abort-recursive-edit minibuffer-local-map)
+  ; 下記不具合があり、より良い設定を模索する必要がある
+    ; 1. `C-SPC` でリージョンをキャンセルすることができない
+    ; 2. ちょくちょく `No recursive edit is in progress` というワーニングが出ている
+
+; OKっぽい.一旦これで設定.
+; これで駄目なら,上記コメントの `C-m` のように、 `C-q` を `C-<return>` として認識させる設定を試す.こちらのほうが筋が良い可能性もある.
+(bind-key "C-<return>" 'keyboard-quit)
+(bind-key "C-<return>" 'abort-recursive-edit minibuffer-local-map)
 
 ;; @@  システムプレフィックス(元M-x)  @@
 
@@ -200,6 +208,9 @@
   ;("C-c" . kill-ring-save) ;コピー
   ;("C-v" . yank) ;ペースト
 
+  ("M-@"  . er/expand-region) ;er範囲選択
+  ("C-M-@"  . mark-word) ;次の単語を範囲選択
+  ;("C-M-`"  . (mark-word -1)) ;前の単語を範囲選択 -> リージョンを前方向に伸ばす方法が見つからないのでこれは未実装. この実装では駄目.
 
   ("C-r" . seq-capitalize-backward-word) ;頭を大文字
   ("C-M-r" . seq-upcase-backward-word) ;大文字
