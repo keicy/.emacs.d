@@ -1,3 +1,2 @@
-(bundle helm
-  (helm-migemo-mode t)
-)
+(bundle helm)
+(helm-migemo-mode t)

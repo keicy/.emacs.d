@@ -63,7 +63,7 @@
 
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
 ;                                                                       ;
-;                          ユーティリティ関数                           ;
+;                          ユーティリティ関数                            ;
 ;                                                                       ;
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
 
@@ -125,10 +125,6 @@
 ; #####   基本操作   ###
   ;; 着本的に絶対バインドで設定
 
-;; @@  システムプレフィックス(元C-x)  @@
-
-(bind-key* "M-b" 'Control-X-prefix)
-
 ;; @@  入力コマンドキャンセル(元C-g)  @@
 
 ;(bind-key* "C-<return>" 'keyboard-quit)
@@ -142,9 +138,18 @@
 (bind-key "C-<return>" 'keyboard-quit)
 (bind-key "C-<return>" 'abort-recursive-edit minibuffer-local-map)
 
-;; @@  システムプレフィックス(元M-x)  @@
+;; @@  システムプレフィックス(元C-x)  @@
+; TODO C-b, C-<space> などのほうが良いかも
 
-(bind-key* "M-<return>" 'execute-extended-command)
+(bind-key* "M-b" 'Control-X-prefix)
+
+;; @@  システムプレフィックス(元M-x)  @@
+; TODO M-b, M-<space> などのほうが良いかも
+
+;(bind-key* "M-<return>" 'execute-extended-command)
+;(bind-key* "M-x" 'helm-M-x) ;あると使ってしまうのでアウト
+(bind-key* "M-<return>" 'helm-M-x)
+(bind-key* "C-b" 'helm-M-x)
 
 ;; @@  システム操作  @@
 
@@ -155,27 +160,28 @@
   ("M-b M-f" . helm-find-files) ;ファイル参照
   ("M-b f" . helm-find-files) ;ファイル参照
   ("C-<tab>" . keicy-window-or-split) ;ウィンドウ切替
+  ("C-M-<tab>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
+  ;("C-M-<backtab>" . swap-screen) ;ウィンドウ左右入替(カーソルハイライト変更) ;;良い割当が無いため一旦未定義
+  ("C-0" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
+  ("C-1" . delete-other-windows) ;他ウィンドウ消去
 
-; ＝ここまで実施 11/14＝
-
-;  ("M-m" . split-window-horizontally) ;ウィンドウ左右分割
-; 下記定義Multiple-CursorsとC-6は競合
-;  ("C-6" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
-;  ("C-M-m" . delete-other-windows) ;他ウィンドウ消去
-;  ("<f2>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
-;  ("S-<f2>" . swap-screen) ;ウィンドウ左右入替(カーソルハイライト変更)
 )
 
 ;; @@  編集操作  @@
-
+(setq viper-mode nil)
+(require 'viper)
 (bind-keys*
 
   ;;; カーソル移動
 
   ("M-j" . backward-char) ;一文字戻る
-  ("C-M-j" . backward-word) ;一単語戻る
+  ;("C-M-j" . backward-word) ;一単語戻る ※単語には記号は含まない.a-z0-9のみ.
+  ;("C-M-j" . backward-same-syntax) ;記号も考慮して一単語戻る
+  ("C-M-j" . viper-backward-word) ;記号も考慮して一単語戻る
   ("M-k" . forward-char) ;一文字進む
-  ("C-M-k" . forward-word) ;一単語進む
+  ;("C-M-k" . forward-to-word) ;一単語進む ※単語には記号は含まない.a-z0-9のみ.
+  ;("C-M-k" . forward-same-syntax) ;記号も考慮して一単語進む
+  ("C-M-k" . viper-forward-word) ;記号も考慮して一単語進む
   ("M-i" . previous-line) ;一行上がる
   ("M-n" . next-line) ;一行下がる
 
@@ -188,28 +194,27 @@
   ;;; 編集
   
   ("C-d" . delete-char) ;DEL
-  ("M-d" . delete-char) ;DEL
-  ("C-M-d" . keicy-delete-word) ;単語DEL
+  ("M-d" . delete-region) ;選択範囲をDEL ;;本当は、選択モード中は `C-d` でこの動作をしてほしい
+  ;("C-M-d" . keicy-delete-word) ;単語DEL
+  ("C-M-d" . forward-delete-word) ;単語DEL
   ("C-S-d" . keicy-delete-line-nokillring) ;行削除
   ("C-f" . delete-backward-char) ;Backspace
-  ("M-f" . delete-backward-char) ;Backspace
-  ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+  ;("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+  ("C-M-f" . backward-delete-word) ;単語Backspace
 
   ("C-s"  . save-buffer) ;保存
 
   ("C-g"  . undo) ;アンドゥ
-  ;("C-r" . redo) ;リドゥ
   ("C-S-g" . redo) ;リドゥ
 
   ("M-o" . kill-region) ;切り取り
   ("M-p" . kill-ring-save) ;コピー
   ("M-u" . yank) ;ペースト
-  ;("C-x" . kill-region) ;切り取り
-  ;("C-c" . kill-ring-save) ;コピー
-  ;("C-v" . yank) ;ペースト
+  ("C-M-u" . helm-show-kill-ring) ;履歴からペースト
 
-  ("M-@"  . er/expand-region) ;er範囲選択
+  ("M-@"  . er/expand-region) ;erで範囲選択
   ("C-M-@"  . mark-word) ;次の単語を範囲選択
+  ("M-`"  . mark-whole-buffer) ;全選択
   ;("C-M-`"  . (mark-word -1)) ;前の単語を範囲選択 -> リージョンを前方向に伸ばす方法が見つからないのでこれは未実装. この実装では駄目.
 
   ("C-r" . seq-capitalize-backward-word) ;頭を大文字
@@ -234,9 +239,9 @@
   
   ;;; 改行
 
-  ("M-h" . newline-and-indent)
-  ("C-h" . newline)
-  ("C-M-h" . keicy-endline-newline-indent) ;末尾に移動して改行
+  ("C-h" . newline-and-indent)
+  ("M-h" . endline-newline-indent) ;末尾に移動して改行
+  ("C-M-h" . endline-newline2-indent) ;末尾に移動して2行改行
 )
 
 ;; @@  検索機能補足設定 (ISearch)  @@
@@ -309,7 +314,8 @@
     (define-key map (kbd "M-i")           'helm-previous-line)
     (define-key map (kbd "M-n")           'helm-next-line)
     (define-key map (kbd "C-f")           'delete-backward-char)
-    (define-key map (kbd "C-M-f")         'keicy-backward-delete-word)
+    ;(define-key map (kbd "C-M-f")         'keicy-backward-delete-word)
+    (define-key map (kbd "C-M-f")         'backward-delete-word)
     (define-key map (kbd "M-u")           'yank)
     map))
 
@@ -378,9 +384,11 @@
              ("M-r" . seq-downcase-backward-word) ;小文字
 
              ("M-j" . backward-char) ;一文字戻る
-             ("C-M-j" . backward-word) ;一単語戻る
+             ;("C-M-j" . backward-word) ;一単語戻る ※単語には記号は含まない.a-z0-9のみ.
+             ("C-M-j" . backward-same-syntax) ;記号も考慮して一単語戻る
              ("M-k" . forward-char) ;一文字進む
-             ("C-M-k" . forward-word) ;一単語進む
+             ;("C-M-k" . forward-to-word) ;一単語進む ※単語には記号は含まない.a-z0-9のみ.
+             ("C-M-k" . forward-same-syntax) ;記号も考慮して一単語進む
              ("M-i" . previous-line) ;一行上がる
              ("M-n" . next-line) ;一行下がる
 
@@ -388,9 +396,11 @@
              ("M-L" . goto-last-change-reverse) ;直後の編集箇所に戻る
 
              ;("C-d" . delete-char) ;DEL ; これを追加すると `cntl-D` が効かなくなるので排除.ただこれがなくともデフォルトでこのバインドがシェル側に定義されているので困らない.
-             ("C-M-d" . keicy-delete-word) ;単語DEL
+             ;("C-M-d" . keicy-delete-word) ;単語DEL
+             ("C-M-d" . forward-delete-word) ;単語DEL
              ("C-f" . delete-backward-char) ;Backspace
-             ("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+             ;("C-M-f" . keicy-backward-delete-word) ;単語Backspace
+             ("C-M-f" . backward-delete-word) ;単語Backspace
              ("M-," . beginning-of-line) ;行頭
              ("M-." . end-of-line) ;行末
 
