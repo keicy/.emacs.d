@@ -113,13 +113,21 @@
 ;                                                                       ;
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ;
 
+;; @@  システムプレフィックス(元C-x)  @@
+(bind-key* "C-SPC" 'Control-X-prefix)
+(unbind-key "C-x")
+
+;; @@  システムプレフィックス(元M-x)  @@
+(bind-key* "M-<return>" 'helm-M-x)
+(unbind-key "M-x")
 
 ; #####   アンバインド   ###
 
-(global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "C-q"))
-(global-unset-key (kbd "M-j"))
-(global-unset-key (kbd "C-z"))
+(unbind-key "C-z" ctl-x-map)
+(unbind-key "C-c" ctl-x-map)
+(unbind-key "C-q")
+(unbind-key "M-j")
+(unbind-key "C-z")
 
 ; #####   基本操作   ###
   ;; 着本的に絶対バインドで設定
@@ -137,33 +145,21 @@
 (bind-key "C-<return>" 'keyboard-quit)
 (bind-key "C-<return>" 'abort-recursive-edit minibuffer-local-map)
 
-;; @@  システムプレフィックス(元C-x)  @@
-; TODO C-b, C-<space> などのほうが良いかも
-
-(bind-key* "M-b" 'Control-X-prefix)
-
-;; @@  システムプレフィックス(元M-x)  @@
-; TODO M-b, M-<space> などのほうが良いかも
-
-;(bind-key* "M-<return>" 'execute-extended-command)
-;(bind-key* "M-x" 'helm-M-x) ;あると使ってしまうのでアウト
-(bind-key* "M-<return>" 'helm-M-x)
-(bind-key* "C-b" 'helm-M-x)
-
 ;; @@  システム操作  @@
 
-(bind-keys*
+(bind-keys :map ctl-x-map
+           ("C-b" . helm-mini) ;バッファ切替
+           ("b" . helm-mini) ;バッファ切替
+           ("C-f" . helm-find-files) ;ファイル参照
+           ("f" . helm-find-files) ;ファイル参照
+)
 
-  ("M-b M-b" . helm-mini) ;バッファ切替
-  ("M-b b" . helm-mini) ;バッファ切替
-  ("M-b M-f" . helm-find-files) ;ファイル参照
-  ("M-b f" . helm-find-files) ;ファイル参照
+(bind-keys*
   ("C-<tab>" . keicy-window-or-split) ;ウィンドウ切替
   ("C-M-<tab>" . swap-screen-with-cursor) ;ウィンドウ左右入替(カーソルハイライト変更なし)
   ;("C-M-<backtab>" . swap-screen) ;ウィンドウ左右入替(カーソルハイライト変更) ;;良い割当が無いため一旦未定義
   ("C-0" . delete-window) ;ウィンドウ消去(※ rf.above - Dispatch Enter key from C-m.)
   ("C-1" . delete-other-windows) ;他ウィンドウ消去
-
 )
 
 ;; @@  編集操作  @@
@@ -263,6 +259,8 @@
 
 ;; @@  置換/矩形編集機能補足設定 (Multiple-Cursors)  @@
 
+(bind-key* "C-M-q" 'mc/mark-all-dwim) ; 大抵の単語選択に対応できる便利コマンド
+
 (smartrep-define-key global-map "C-q"
   '(
     ("C-q" . 'mc/keyboard-quit)
@@ -288,7 +286,7 @@
 
 ;; @@  	Gitクライアント (Magit)  @@
 
-(bind-key "C-z" 'magit-status) ; 起動
+(bind-key* "C-z" 'magit-status) ; 起動
 
 (with-eval-after-load-feature 'magit
   (bind-keys :map magit-mode-map
@@ -304,22 +302,30 @@
 
 ;; @@  	タブ機能 (Elscreen)  @@
 
-(keicy-util elscreen
-  ("n" elscreen-create)
-  ("k" elscreen-kill)
-  ("." elscreen-next)
-  ("," elscreen-previous)
+(bind-keys :map ctl-x-map
+           ("n" . elscreen-create) ; 新しいスクリーンを作成
+           ("C-n" . elscreen-create) ; 新しいスクリーンを作成
+           ("k" . elscreen-kill) ; スクリーンを削除
+           ("C-k" . elscreen-kill) ; スクリーンを削除
+           ("," . elscreen-previous) ; 前のスクリーンに移動
+           ("C-," . elscreen-previous) ; 前のスクリーンに移動
+           ("." . elscreen-next) ; 次のスクリーンに移動
+           ("C-." . elscreen-next) ; 次のスクリーンに移動
 )
 
 ;; @@  	フォルダ編集機能 (Dired)  @@
 
-(keicy-util dired
-  ("d" dired))
+(bind-keys :map ctl-x-map
+           ("d" . dired) ; 起動
+           ("C-d" . dired) ; 起動
+)
 
 ;; @@  ファルダ配下一括編集機能 (Ag)  @@
 
-(keicy-util ag
-  ("g" ag-at-hand))
+(bind-keys :map ctl-x-map
+           ("g" . ag-at-hand) ; 起動
+           ("C-g" . ag-at-hand) ; 起動
+)
 
 ;; @@  インタフェースツール (Helm)  @@
 
