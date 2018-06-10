@@ -6,8 +6,8 @@ It's a settings for emacs that v24.5 or later.
 ## Usage
 
 ```
-# OS側にEmacsから呼び出すモジュールを追加
-sudo apt install TODO
+# OS側にEmacsが使用するモジュールを追加
+sudo apt install texinfo
 npm i -g jsonlint tslint typescript
 
 ## tslint と typescript はnpmのバグで同時にインストールしないと依存関係が解決できないことに留意

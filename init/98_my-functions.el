@@ -160,9 +160,15 @@
                    (buffer-end arg)))))
 
 
-;todo
-;;;;自動でリージョン選択してカーソル移動
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; バッファ操作.
 
+; 現在のバッファを閉じて以前のウィンドウに復帰
+(defun kill-current-buffer-previous-multiframe-window()
+  (interactive)
+  (kill-current-buffer)
+  (previous-multiframe-window)
+)
 
 
 ;;;;-----------------------;
@@ -184,4 +190,3 @@
   (setq bounds (bounds-of-thing-at-point 'page))
   (ruby-send-region-and-go (car bounds) (cdr bounds))
   (end-of-buffer))
-

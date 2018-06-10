@@ -119,8 +119,7 @@
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-q"))
 (global-unset-key (kbd "M-j"))
-
-
+(global-unset-key (kbd "C-z"))
 
 ; #####   基本操作   ###
   ;; 着本的に絶対バインドで設定
@@ -285,6 +284,23 @@
 
 
 ; #####   プラグイン設定   ###
+
+
+;; @@  	Gitクライアント (Magit)  @@
+
+(bind-key "C-z" 'magit-status) ; 起動
+
+(with-eval-after-load-feature 'magit
+  (bind-keys :map magit-mode-map
+             ("C-z" . magit-dispatch-popup) ; ヘルプを表示
+             ("C-<return>" . kill-current-buffer-previous-multiframe-window) ; Quit
+  )
+
+  (bind-keys :map magit-popup-mode-map
+             ("C-z" . magit-popup-help) ; ヘルプを表示
+             ("C-<return>" . magit-popup-quit) ; Quit
+  )
+)
 
 ;; @@  	タブ機能 (Elscreen)  @@
 
