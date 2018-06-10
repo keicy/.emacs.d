@@ -291,7 +291,6 @@
 (bind-key "C-z" 'magit-status) ; 起動
 
 (with-eval-after-load-feature 'magit
-
   (bind-keys :map magit-mode-map
              ("C-z" . magit-dispatch-popup) ; ヘルプを表示
              ("C-<return>" . kill-current-buffer-previous-multiframe-window) ; Quit
