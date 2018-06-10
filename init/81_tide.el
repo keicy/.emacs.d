@@ -16,6 +16,7 @@
   (eldoc-mode)
   (tide-hl-identifier-mode)
   (company-mode)
+  (rainbow-delimiters-mode)
 )
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 

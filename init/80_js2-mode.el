@@ -14,6 +14,7 @@
             (setq flycheck-checker 'javascript-eslint)
             (flycheck-add-mode 'javascript-eslint 'js2-mode)
             ;(flycheck-add-mode 'javascript-standard 'js2-mode) ;ストレートにこれでも悪くなないけど
+            (rainbow-delimiters-mode)
             ))
 ; js2-modeはmode固有の独自のコードチェッカが内蔵されている。上記設定で無効にしているが
 ; なにか問題があるようなら代わりに下記設定でjs-modeを使う。

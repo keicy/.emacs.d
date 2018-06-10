@@ -6,4 +6,5 @@
   (setq flycheck-checker 'javascript-eslint)
   (flycheck-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (rainbow-delimiters-mode)
 )

@@ -7,4 +7,5 @@
             (flycheck-mode)
             (setq flycheck-checker 'json-jsonlint)
             (flycheck-add-mode 'json-jsonlint 'json-mode)
+            (rainbow-delimiters-mode)
             ))

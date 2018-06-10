@@ -14,3 +14,5 @@
 )
 
 (bundle ensime)
+
+(add-hook 'scala-mode-hook 'rainbow-delimiters-mode)
