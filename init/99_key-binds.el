@@ -286,7 +286,7 @@
 
 ;; @@  	Gitクライアント (Magit)  @@
 
-(bind-key* "C-z" 'magit-status) ; 起動
+(bind-key "C-z" 'magit-status) ; 起動
 
 (with-eval-after-load-feature 'magit
   (bind-keys :map magit-mode-map
