@@ -148,8 +148,12 @@
 ;; @@  システム操作  @@
 
 (bind-keys :map ctl-x-map
-           ("C-b" . helm-mini) ;バッファ切替
-           ("b" . helm-mini) ;バッファ切替
+           ;("C-b" . helm-mini) ;バッファ切替
+           ;("b" . helm-mini) ;バッファ切替
+           ("C-SPC" . helm-mini) ;バッファ切替
+           ("SPC" . helm-mini) ;バッファ切替
+           ("C-k" . kill-this-buffer) ;バッファ削除
+           ("k" . kill-this-buffer) ;バッファ削除
            ("C-f" . helm-find-files) ;ファイル参照
            ("f" . helm-find-files) ;ファイル参照
 )
@@ -305,8 +309,8 @@
 (bind-keys :map ctl-x-map
            ("n" . elscreen-create) ; 新しいスクリーンを作成
            ("C-n" . elscreen-create) ; 新しいスクリーンを作成
-           ("k" . elscreen-kill) ; スクリーンを削除
-           ("C-k" . elscreen-kill) ; スクリーンを削除
+           ("w" . elscreen-kill) ; スクリーンを削除
+           ("C-w" . elscreen-kill) ; スクリーンを削除
            ("," . elscreen-previous) ; 前のスクリーンに移動
            ("C-," . elscreen-previous) ; 前のスクリーンに移動
            ("." . elscreen-next) ; 次のスクリーンに移動
