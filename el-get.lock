@@ -1,5 +1,7 @@
 (setq el-get-lock-package-versions
-      '((rainbow-delimiters :checksum "19b93892afa0494ba749c2ca9c154e04447ad778")
+      '((avy-migemo :checksum "3d8c87ff6da83eb294b009e901fa5f318d5ef845")
+        (avy :checksum "7c40f5e3811716b05d87a06096b190f7cf7bdc45")
+        (rainbow-delimiters :checksum "19b93892afa0494ba749c2ca9c154e04447ad778")
         (magit :checksum "36d69369f7f9fb64954a4805576010957cf5b29a")
         (magit-popup :checksum "60ff82ac7aa8dbc24eb3c34dbed13ad01f20671c")
         (ghub :checksum "ebab22e345f489d92b6a2fc179049405344c4d8f")
