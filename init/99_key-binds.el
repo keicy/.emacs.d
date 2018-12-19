@@ -287,6 +287,24 @@
 
 ; #####   プラグイン設定   ###
 
+;; @@  	1文字ジャンプ (avy)  @@
+
+(defun bind-avy-jump-key (prefix c &optional mode)
+  (define-key global-map
+    (read-kbd-macro (concat prefix (string c)))
+    `(lambda ()
+       (interactive)
+       (funcall (if (eq ',mode 'word)
+                    #'avy-goto-word-1
+                    #'avy-goto-char) ,c))))
+
+(loop for c from ?0 to ?9 do (bind-avy-jump-key "H-" c))
+(loop for c from ?a to ?z do (bind-avy-jump-key "H-" c))
+(loop for c from ?! to ?~ do (bind-avy-jump-key "H-" c))
+(loop for c from ?0 to ?9 do (bind-avy-jump-key "H-C-" c 'word))
+(loop for c from ?a to ?z do (bind-avy-jump-key "H-C-" c 'word))
+(loop for c from ?! to ?~ do (bind-avy-jump-key "H-C-" c 'word))
+
 
 ;; @@  	Gitクライアント (Magit)  @@
 
